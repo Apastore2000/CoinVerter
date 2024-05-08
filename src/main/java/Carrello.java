@@ -1,21 +1,24 @@
 
 import java.util.ArrayList;
 import java.util.List;
+//carrello dovrà essere in grado di contenere sia le valute che le carte
+// rendi generico usando T extends Product (va sviluppata l'interfaccia product)
+
 
 public class Carrello {
 
-	private List<ProductBean> products;
+	private List<Object> products;
 	
 	public Carrello() {
-		products = new ArrayList<ProductBean>();
+		products = new ArrayList<Object>();
 	}
 	
-	public void addProduct(ProductBean product) {
+	public void addProduct(Object product) {
 		products.add(product);
 	}
 	
-	public void deleteProduct(ProductBean product) {
-		for(ProductBean prod : products) {
+	public void deleteProduct(Object product) {
+		for(Object prod : products) {
 			if(prod.getCode() == product.getCode()) {
 				products.remove(prod);
 				break;
@@ -23,7 +26,7 @@ public class Carrello {
 		}
  	}
 	
-	public List<ProductBean> getProducts() {
+	public List<T> getProducts() {
 		return  products;
 	}
 }

@@ -1,9 +1,13 @@
-public abstract class Valuta {
+import java.io.Serializable;
 
+public abstract class ValutaBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private String nome;
 	private float tassoCambio;
 	
-	public Valuta(String nome, float tassoCambio) {
+	public ValutaBean(String nome, float tassoCambio) {
 		this.nome = nome;
 		this.tassoCambio = tassoCambio;
 	}
@@ -28,4 +32,11 @@ public abstract class Valuta {
 		return eur * tassoCambio;
 	}
 
+	@Override
+	public String toString() {
+		return "Valuta [nome=" + nome + ", tassoCambio=" + tassoCambio + "]";
+	}
+
+	
+	
 }
