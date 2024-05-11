@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Carrello {
 
-	private List<Object> products;
+	private List<T extends product> products;
 	
 	public Carrello() {
 		products = new ArrayList<Object>();
