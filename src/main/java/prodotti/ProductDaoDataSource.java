@@ -21,14 +21,14 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 
-			ds = (DataSource) envCtx.lookup("jdbc/storage");
+			ds = (DataSource) envCtx.lookup("jdbc/CoinVerter");
 
 		} catch (NamingException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
 	}
 
-	private static final String TABLE_NAME = "product";
+	private static final String TABLE_NAME = "prodotto";
 
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
@@ -37,16 +37,16 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
-				+ " (NAME, DESCRIPTION, PRICE, QUANTITY) VALUES (?, ?, ?, ?)";
+				+ " (nome, prezzo, quantità, tipo, foto) VALUES (?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getName());
-			preparedStatement.setString(2, product.getDescription());
-			preparedStatement.setInt(3, product.getPrice());
-			preparedStatement.setInt(4, product.getQuantity());
-
+			preparedStatement.setFloat(2, product.getPrice());
+			preparedStatement.setInt(3, product.getQuantity());
+			//preparedStatement.setEnum che non esiste...
+			preparedStatement.setString(5, product.getName());
 			preparedStatement.executeUpdate();
 
 		} finally {
@@ -77,11 +77,12 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCode(rs.getInt("CODE"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, bean.getName());
+				preparedStatement.setFloat(2, bean.getPrice());
+				preparedStatement.setInt(3, bean.getQuantity());
+				//preparedStatement.setEnum che non esiste...
+				preparedStatement.setString(5, bean.getName());
 			}
 
 		} finally {
@@ -146,11 +147,12 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				bean.setCode(rs.getInt("CODE"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, bean.getName());
+				preparedStatement.setFloat(2, bean.getPrice());
+				preparedStatement.setInt(3, bean.getQuantity());
+				//preparedStatement.setEnum che non esiste...
+				preparedStatement.setString(5, bean.getName());
 				products.add(bean);
 			}
 

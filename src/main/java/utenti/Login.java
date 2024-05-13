@@ -36,6 +36,7 @@ public class Login extends HttpServlet {
             username = username.trim();
             password = password.trim();
 			
+            
 			if(username.equals("admin") && password.equals("mypass")){ //admin
 				request.getSession().setAttribute("isAdmin", Boolean.TRUE); //inserisco il token nella sessione
 				response.sendRedirect("admin/protected.jsp");
