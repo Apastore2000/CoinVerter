@@ -1,5 +1,6 @@
 package prodotti;
 
+import coin.Carrello;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -24,9 +25,9 @@ public class ProductControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Cart cart = (Cart)request.getSession().getAttribute("cart");
+		Carrello cart = (Carrello)request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new Carrello();
 			request.getSession().setAttribute("cart", cart);
 		}
 		

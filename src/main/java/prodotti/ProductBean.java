@@ -60,6 +60,13 @@ public class ProductBean implements Serializable {
 		else this.quantity = quantity;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductBean [code=" + code + ", name=" + name + ", price=" + price + ", quantity=" + quantity
+				+ ", tipo=" + tipo + "]";
+	}
+
 	
 
+	
 }

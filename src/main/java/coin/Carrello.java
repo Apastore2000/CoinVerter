@@ -1,4 +1,6 @@
+package coin;
 
+import prodotti.ProductBean;
 import java.util.ArrayList;
 import java.util.List;
 //carrello dovrà essere in grado di contenere sia le valute che le carte
@@ -7,18 +9,18 @@ import java.util.List;
 
 public class Carrello {
 
-	private List<T extends product> products;
+	private List<ProductBean> products;
 	
 	public Carrello() {
-		products = new ArrayList<Object>();
+		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 	}
 	
-	public void addProduct(Object product) {
+	public void addProduct(ProductBean product) {
 		products.add(product);
 	}
 	
-	public void deleteProduct(Object product) {
-		for(Object prod : products) {
+	public void deleteProduct(ProductBean product) {
+		for(ProductBean prod : products) {
 			if(prod.getCode() == product.getCode()) {
 				products.remove(prod);
 				break;
@@ -26,7 +28,7 @@ public class Carrello {
 		}
  	}
 	
-	public List<T> getProducts() {
+	public List<ProductBean> getProducts() {
 		return  products;
 	}
 }

@@ -46,6 +46,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			preparedStatement.setFloat(2, product.getPrice());
 			preparedStatement.setInt(3, product.getQuantity());
 			//preparedStatement.setEnum che non esiste...
+			preparedStatement.setString(4, insertSQL);
 			preparedStatement.setString(5, product.getName());
 			preparedStatement.executeUpdate();
 
@@ -81,7 +82,8 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 				preparedStatement.setString(1, bean.getName());
 				preparedStatement.setFloat(2, bean.getPrice());
 				preparedStatement.setInt(3, bean.getQuantity());
-				//preparedStatement.setEnum che non esiste...
+				//preparedStatement.setEnum non esiste...
+				preparedStatement.setString(4, bean.getTipo().toString());
 				preparedStatement.setString(5, bean.getName());
 			}
 
@@ -152,6 +154,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 				preparedStatement.setFloat(2, bean.getPrice());
 				preparedStatement.setInt(3, bean.getQuantity());
 				//preparedStatement.setEnum che non esiste...
+				preparedStatement.setString(4, bean.getTipo().toString());
 				preparedStatement.setString(5, bean.getName());
 				products.add(bean);
 			}
