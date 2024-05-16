@@ -1,6 +1,7 @@
 package prodotti;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 public class ProductBean implements Serializable {
 
@@ -8,14 +9,14 @@ public class ProductBean implements Serializable {
 	
 	int code;
 	String name;
-	int price;
+	float price;
 	Integer quantity;
 	ProductType tipo;
+	Blob foto;
+	boolean available;
 
 	public ProductBean() {
-		code = -1;
-		name = "";
-		quantity = 0;
+		price = -1;
 	}
 
 	public int getCode() {
@@ -35,20 +36,24 @@ public class ProductBean implements Serializable {
 	}
 
 
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	
-	public String getTipo() {
+	public String getType() {
 		return tipo.toString();
 	}
 
-	public void setTipo(ProductType tipo) {
-		this.tipo = tipo;
+	public int setType(String tipo) {
+		for(ProductType prod : ProductType.values()) {
+			if(tipo.equals(prod.toString()))this.tipo = ProductType.valueOf(tipo);
+			return 0;
+		}
+		return -1;
 	}
 
 	public int getQuantity() {
@@ -58,6 +63,27 @@ public class ProductBean implements Serializable {
 	public void setQuantity(int quantity) {
 		if(tipo.equals(ProductType.valuta)) this.quantity = null;
 		else this.quantity = quantity;
+	}
+
+	
+
+	public Blob getFoto() {
+		return foto;
+	}
+
+	public void setFoto(Blob foto) {
+		this.foto = foto;
+	}
+	
+	
+	
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	@Override

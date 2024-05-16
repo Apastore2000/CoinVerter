@@ -47,7 +47,7 @@ public class ProductControl extends HttpServlet {
 					request.setAttribute("product", productDao.doRetrieveByKey(id));
 				} else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					productDao.doDelete(id);
+					productDao.doRemove(id);
 				} else if (action.equalsIgnoreCase("insert")) {
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");

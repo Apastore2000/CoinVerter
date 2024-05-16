@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 
 public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
+	private String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+	
 	private static DataSource ds;
 
 	static {
@@ -35,21 +37,20 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		String insertSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
+		
+		String insertNewSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
 				+ " (nome, prezzo, quantità, tipo, foto) VALUES (?, ?, ?, ?, ?)";
 
 		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
+			connection = ds.getConnection();    
+			preparedStatement = connection.prepareStatement(insertNewSQL);
 			preparedStatement.setString(1, product.getName());
 			preparedStatement.setFloat(2, product.getPrice());
 			preparedStatement.setInt(3, product.getQuantity());
 			//preparedStatement.setEnum che non esiste...
-			preparedStatement.setString(4, insertSQL);
+			preparedStatement.setString(4, insertNewSQL);
 			preparedStatement.setString(5, product.getName());
 			preparedStatement.executeUpdate();
-
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -61,6 +62,67 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		}
 	}
 
+	
+	
+	@Override
+	public void doUpdate(ProductBean product) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ProductBean oldBean = new ProductBean();
+
+		String updateSQL = "UPDATE " + ProductDaoDataSource.TABLE_NAME + 
+		" SET nome = ?,quantità = ?, tipo = ?, prezzo = ?, foto = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, product.getCode());
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				oldBean.setCode(rs.getInt("ID_prodotto"));
+				oldBean.setName(rs.getString("nome"));
+				oldBean.setType(rs.getString("tipo"));
+				oldBean.setFoto(rs.getBlob("foto"));
+				oldBean.setPrice((float)rs.getDouble("prezzo"));
+				
+				
+			preparedStatement = connection.prepareStatement(updateSQL);
+			if(product.getName()== null) {preparedStatement.setString(1, oldBean.getName());}
+			else preparedStatement.setString(1, product.getName());
+			
+			if(product.getType()== null) {preparedStatement.setString(1, oldBean.getType());}
+			else preparedStatement.setString(1, product.getType());
+			
+			if(product.getPrice()< 0) {preparedStatement.setFloat(1, oldBean.getPrice());}
+			else preparedStatement.setFloat(1, product.getPrice());
+			
+			if(product.getName()== null) {preparedStatement.setString(1, oldBean.getName());}
+			else preparedStatement.setString(1, product.getName());
+			
+			if(product.getName()== null) {preparedStatement.setString(1, oldBean.getName());}
+			else preparedStatement.setString(1, product.getName());
+			
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
+		
+
+
+
+
 	@Override
 	public synchronized ProductBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
@@ -68,7 +130,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+		//String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -78,13 +140,13 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				preparedStatement = connection.prepareStatement(selectSQL);
-				preparedStatement.setString(1, bean.getName());
-				preparedStatement.setFloat(2, bean.getPrice());
-				preparedStatement.setInt(3, bean.getQuantity());
-				//preparedStatement.setEnum non esiste...
-				preparedStatement.setString(4, bean.getTipo().toString());
-				preparedStatement.setString(5, bean.getName());
+				bean.setCode(rs.getInt("ID_prodotto"));
+				bean.setName(rs.getString("nome"));
+				bean.setType(rs.getString("tipo"));
+				bean.setFoto(rs.getBlob("foto"));
+				bean.setPrice((float)rs.getDouble("prezzo"));
+			
+			
 			}
 
 		} finally {
@@ -100,13 +162,13 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 	}
 
 	@Override
-	public synchronized boolean doDelete(int code) throws SQLException {
+	public synchronized boolean doRemove(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "UPDATE " + ProductDaoDataSource.TABLE_NAME + " SET disponibile = 'false' WHERE CODE = ?";
 
 		try {
 			connection = ds.getConnection();

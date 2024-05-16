@@ -6,8 +6,9 @@ CREATE TABLE prodotto(
     nome VARCHAR(50) NOT NULL,
    	prezzo DOUBLE NOT NULL,
     quantità INT,
-    tipo ENUM('valuta', 'carta'),
+    tipo ENUM('valuta', 'crypto', 'carta'),
 	foto MEDIUMBLOB
+	disponibile BOOLEAN NOT NULL;
 );
 
 CREATE TABLE utente(
