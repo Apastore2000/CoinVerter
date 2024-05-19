@@ -1,9 +1,9 @@
-<%@ page import="utenti.User" %>
+<!-- <%@ page import="utenti.User" %> -->
 <%
-  User user = (User)request.getAttribute("user");
-  String url_var; 
-  if(user == null) url_var = "userDark.png";
-  else url_var = "userDark.png";
+  //User user = (User)request.getAttribute("user");
+  String url_var = "img/iconUser.png"; 
+  //if(user == null) url_var = "img/iconUser.png";
+  //else url_var = "img/iconUserLog.png";
 %>
 
 <!DOCTYPE html>
