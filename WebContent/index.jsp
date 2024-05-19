@@ -1,6 +1,6 @@
-
+<%@ page import="utenti.User" %>
 <%
-  User user = request.getAttribute("user");
+  User user = (User)request.getAttribute("user");
   String url_var; 
   if(user == null) url_var = "userDark.png";
   else url_var = "userDark.png";
