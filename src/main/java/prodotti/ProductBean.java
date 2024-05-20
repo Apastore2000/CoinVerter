@@ -61,8 +61,8 @@ public class ProductBean implements Serializable {
 	}
 
 	public void setQuantity(int quantity) {
-		if(tipo.equals(ProductType.valuta)) this.quantity = null;
-		else this.quantity = quantity;
+		if(tipo.equals(ProductType.carta)) this.quantity = quantity;
+		else this.quantity = null;
 	}
 
 	

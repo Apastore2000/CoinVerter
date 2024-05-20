@@ -1,11 +1,16 @@
 package utenti;
 
+import java.util.HashMap;
+
+import prodotti.ProductBean;
+
 public class User {
 
 	private String nome,cognome,email;
 	private byte[] pwd;
 	private boolean isAdmin = false;
-	
+	HashMap<String, Integer> portafoglio;
+	// ProductBean[] portafoglio; 
 	
 	
 	public User() {}
@@ -60,7 +65,15 @@ public class User {
 	}
 	
 	
+	public HashMap<String, Integer> getPortafoglio() {
+		return portafoglio;
+	}
 	
+	public void ricaricaPortafoglio(String valuta,int importo) {
+		portafoglio.putIfAbsent(valuta, 0);
+		portafoglio.put(valuta, portafoglio.get(valuta) + importo);
+		
+	}
 	
 	
 }

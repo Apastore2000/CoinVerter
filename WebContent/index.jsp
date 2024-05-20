@@ -1,10 +1,13 @@
-<!-- <%@ page import="utenti.User" %> -->
+<%@page import="utenti.User"%>
+<%!String url_var = "img/iconUser.png";%>
 <%
-  //User user = (User)request.getAttribute("user");
-  String url_var = "img/iconUser.png"; 
-  //if(user == null) url_var = "img/iconUser.png";
-  //else url_var = "img/iconUserLog.png";
+	User user = (User)request.getAttribute("user");
+   
+  	if(user == null) url_var = "img/iconUser.png";
+  	else url_var = "img/iconUserLog.png";
 %>
+
+
 
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
@@ -66,7 +69,7 @@
         <div id="toggle">
           <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
             <div class="position">
-              <img class="icon" src="<%= url_var %>" alt="">
+              <img class="icon" src="<%=url_var%>" alt="">
               <!--implementare lo switch dell'icona quando l'utente è loggato-->
               <span class="caption">LOGIN</span>
             </div>

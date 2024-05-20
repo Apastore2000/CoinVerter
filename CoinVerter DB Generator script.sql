@@ -26,6 +26,12 @@ CREATE TABLE ordine(
     FOREIGN KEY(email) REFERENCES utente(Email) ON UPDATE CASCADE
 );
 
+
+CREATE TABLE valuta(
+	nome VARCHAR(50) NOT NULL PRIMARY KEY
+	valore DOUBLE NOT NULL;
+);
+
 CREATE TABLE acquista(
 	Email VARCHAR(50) NOT NULL,
 	ID_prodotto INT NOT NULL,

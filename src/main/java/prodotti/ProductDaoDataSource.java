@@ -99,11 +99,10 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			if(product.getPrice()< 0) {preparedStatement.setFloat(1, oldBean.getPrice());}
 			else preparedStatement.setFloat(1, product.getPrice());
 			
-			if(product.getName()== null) {preparedStatement.setString(1, oldBean.getName());}
-			else preparedStatement.setString(1, product.getName());
+			if(product.getFoto()== null) {preparedStatement.setBlob(1, oldBean.getFoto());}
+			else preparedStatement.setBlob(1, product.getFoto());
 			
-			if(product.getName()== null) {preparedStatement.setString(1, oldBean.getName());}
-			else preparedStatement.setString(1, product.getName());
+			
 			
 			}
 
@@ -216,7 +215,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 				preparedStatement.setFloat(2, bean.getPrice());
 				preparedStatement.setInt(3, bean.getQuantity());
 				//preparedStatement.setEnum che non esiste...
-				preparedStatement.setString(4, bean.getTipo().toString());
+				preparedStatement.setString(4, bean.getType().toString());
 				preparedStatement.setString(5, bean.getName());
 				products.add(bean);
 			}
