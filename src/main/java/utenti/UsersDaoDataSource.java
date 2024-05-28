@@ -12,8 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import prodotti.ProductBean;
-import prodotti.ProductDaoDataSource;
 
 public class UsersDaoDataSource implements IUsersDAO<User> {
 

@@ -2,7 +2,7 @@ package utenti;
 
 import java.util.HashMap;
 
-import prodotti.ProductBean;
+//import prodotti.ProductBean;
 
 public class User {
 

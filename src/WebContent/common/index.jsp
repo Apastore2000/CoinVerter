@@ -1,3 +1,6 @@
+
+
+
 <%@page import="utenti.User"%>
 <%!String url_var = "img/iconUser.png";%>
 <%
@@ -8,11 +11,11 @@
 %>
 
 
-
+<%--<%!String url_var = "img/iconUser.png";%> --%>
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
 
-<head>
+<head name="top">
   <link rel="shortcut icon" type="image/gif" href="img/logo.png">
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
@@ -77,7 +80,7 @@
           <div class="cartContainer">
             <div class="position">
               <div class="badge yellow"> 0 </div>
-              <a href="cart.html"><img class="icon" src="img/iconCart.png" alt=""></a>
+              <a href="common/carrello.html"><img class="icon" src="img/iconCart.png" alt=""></a>
               <span class="caption">CART</span>
             </div>
           </div>
@@ -259,11 +262,13 @@
         </div>
       </div>
     </div>
-    <div class="toTop">
-      <a href="index.html" class="topBtn">
+   
+   <div class="toTop">
+      <a href="#top" class="topBtn">
         <img src="img/up.png" alt="">
       </a>
     </div>
+    
   </footer>
 </body>
 </html>
