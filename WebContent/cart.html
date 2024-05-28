@@ -1,14 +1,3 @@
-<%@page import="utenti.User"%>
-<%!String url_var = "img/iconUser.png";%>
-<%
-	User user = (User)request.getAttribute("user");
-   
-  	if(user == null) url_var = "img/iconUser.png";
-  	else url_var = "img/iconUserLog.png";
-%>
-
-
-
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
 
@@ -56,7 +45,7 @@
       <div id="container">
         <div id="logoBox"><img id="logo" src='' alt=""></div>
         <div id="collection">
-          <div id="shop"><a href="shop.html"> SHOP </a></div>
+          <div id="shop"><a href="index.html"> HOME </a></div>
         </div>
         <div class="searchContainer">
           <img id="searchIcon" src="img/iconSearch.png" alt="">
@@ -69,7 +58,7 @@
         <div id="toggle">
           <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
             <div class="position">
-              <img class="icon" src="<%=url_var%>" alt="">
+              <img class="icon" src="img/iconUser.png" alt="">
               <!--implementare lo switch dell'icona quando l'utente è loggato-->
               <span class="caption">LOGIN</span>
             </div>
@@ -190,7 +179,7 @@
         //btn.classList.remove("hidden");
       });
 
-    }
+    } 
     openSearchbar();
 
     function closeSearchbar() {
@@ -208,33 +197,82 @@
     }
     window.addEventListener("resize", checkWindowWidth);
     checkWindowWidth();
-
-
-
-    /*
-    checkLogin(obj){
-      if(obj == null)window.location.replace("Coinverter/login.jsp");
-    }
-    */
   </script>
 
   <main class="bgPage">
     <div class="bg">
-      <div class="flexContainer">
-        <div class="flexbox">
-          b1
+      <section>
+        <div class="container">
+          <div class="cartHeaderContainer">
+            <a class="btnBack" href="shop.html">               
+              <div id="btnBackContainer"><img src="img/cart/iconBack.png"><span class="btnBack-txt">BACK TO SHOP</span></div>
+            </a>
+            <h2 id="title" class="cartHeader">My shopping cart</h2>
+          </div>
+          <div class="cart">
+            <!-- empty cart placeholder -->
+            <div class="itemContainer" id="empty-cart-message" style="display: none;">
+              <div class="cart-item">
+                <div class="row">
+                  <div class="imgContainer center-item">
+                    <img src="img/cart/imgProduct/emptyCart.png" alt="">
+                    <h5>Il tuo carrello è vuoto</h5>
+                  </div>
+                  <div class="dataContainer center-item">
+                    <h5>Non ci sono articoli nel tuo carrello. Torna al negozio e aggiungi alcuni!</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- items -->
+
+            <div class="itemContainer">
+              <div class="cart-item">
+                <div class="row">
+                  <div class="imgContainer center-item">
+                    <img src="img/iconUser.png" alt="">
+                    <h5>iPhone 11 128GB Black( $1219 )</h5>
+                  </div>
+                  <div class="dataContainer center-item">
+                    <div class="input-group number-spinner">
+                      <button id="left" id="phone-minus" class="btn btn-default"><img id="iconQta"
+                          src="img/cart/iconSubtract.png" alt=""></button>
+                      <input id="phone-number" type="number" min="0" class="form-control" value="1">
+                      <button id="right" id="phone-plus" class="btn btn-default"><img id="iconQta"
+                          src="img/cart/iconPlus.png" alt=""></button>
+                    </div>
+                    <h5>$<span id="phone-total">1219</span></h5>
+                    <img src="img/cart/iconTrash.png" alt="" class="remove-item">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="itemContainer">
+              <div class="cart-item">
+                <div class="row">
+                  <div class="generiContainer">
+                    <h5>Subtotal: </h5>
+                    <h5>shipping:</h5>
+                    <h5>Total:</h5>
+                  </div>
+                  <div class="generiContainer status">
+                    <h5>$<span id="sub-total">1,278</span></h5>
+                    <h5>$<span id="tax-amount">0</span></h5>
+                    <h5>$<span id="total-price">1,278</span></h5>
+                  </div>
+                </div>
+              </div>
+              <div class="CheckOutContainer">
+                <button type="button" class="btn check-out">Check Out</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="flexbox">
-          b2
-        </div>
-        <div class="flexbox">
-          b3
-        </div>
-        <div class="flexbox">
-          b4
-        </div>
-      </div>
+      </section>
     </div>
+    <script src="app.js"></script>
   </main>
 
   <footer>
@@ -260,10 +298,11 @@
       </div>
     </div>
     <div class="toTop">
-      <a href="index.html" class="topBtn">
+      <a href="cart.html" class="topBtn">
         <img src="img/up.png" alt="">
       </a>
     </div>
   </footer>
 </body>
+
 </html>
