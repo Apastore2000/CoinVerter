@@ -7,7 +7,7 @@ CREATE TABLE prodotto(
    	prezzo DOUBLE NOT NULL,
     quantità INT,
     tipo ENUM('valuta', 'crypto', 'carta'),
-	foto MEDIUMBLOB
+	foto MEDIUMBLOB,
 	disponibile BOOLEAN NOT NULL;
 );
 
