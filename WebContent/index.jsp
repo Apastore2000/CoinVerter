@@ -38,6 +38,13 @@
     }
     window.addEventListener('load', switchLogo);
     window.addEventListener('resize', switchLogo);
+    
+    function Ricerca(){
+    	let filtro = document.getElementById("inputbar").value;
+    	sessionStorage.setItem("filter",filtro);
+    }
+
+    }
   </script>
 
   <header id="header-block">
@@ -45,7 +52,7 @@
       <div id="container">
         <div id="logoBox"><img id="logo" src='' alt=""></div>
         <div id="collection">
-          <div id="shop"><a href="index.html"> HOME </a></div>
+          <div id="shop"><a href="shop.jsp"> SHOP </a></div>
         </div>
         <div class="searchContainer">
           <img id="searchIcon" src="img/icon/iconSearch.png" alt="">
@@ -86,9 +93,9 @@
     <div class="searchbarContent">
       <div class="searchbarBody">
         <input type="text" id="inputbar" name="searchBox" placeholder="Search...">
-        <button class="btn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
+        <button class="sBtn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
       </div>
-      <button class="btn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
+      <button class="sBtn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
     </div>
   </div>
 
@@ -144,7 +151,7 @@
       const isSearchbar = document.querySelector("[isOpenSearchbar]");
       const searchbar = document.querySelector(".searchbar");
       const searchbarOverlay = document.querySelector(".searchbarOverlay");
-      const closeSearchbar = document.querySelector(".searchbar .btn");
+      const closeSearchbar = document.querySelector(".searchbar .sBtn");
       //const btn =  document.querySelector("#searchBtn");
 
       isSearchbar.addEventListener("click", (e) => {
@@ -197,138 +204,34 @@
     }
     window.addEventListener("resize", checkWindowWidth);
     checkWindowWidth();
+
+
+
+    /*
+    checkLogin(obj){
+      if(obj == null)window.location.replace("Coinverter/login.jsp");
+    }
+    */
   </script>
 
   <main class="bgPage">
-     <!--<nav class='animated bounceInDown'>
-        <ul>
-          <li class='sub-menu'><a href="">Valute<div class='fa fa-caret-down right'></div></a>
-            <ul>
-              <li><a href='#settings'>Fisica</a></li>
-              <li><a href='#settings'>Digitale</a></li>
-            </ul>
-          </li>
-          <li class='sub-menu'><a href='#message'>carte<div class='fa fa-caret-down right'></div></a>
-            <ul>
-              <li><a href='#settings'>Card</a></li>
-              <li><a href='#settings'>Gift Card</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>-->
-      <section class="shop">
-          <div class="headerShopContainer">
-            <h2>
-              Our <span>products</span>
-            </h2>
-          </div>
-          
-          <div class="shopRow">
-
-            <div class="shopItem">
-              <div class="itemBox">
-                <div class="optionContainer">
-                  <div class="options">
-                    <a href="" class="option">
-                      Add To Cart
-                    </a>
-                  </div>
-                </div>
-                <div class="imgShopContainer">
-                  <img src="img/icon/iconUser.png" alt="">
-                </div>
-                <div class="detailBox">
-                  <h5>
-                    Women's Dress
-                  </h5>
-                  <h6>
-                    $68
-                  </h6>
-                </div>
-              </div>
-            </div>
-              <div class="shopItem">
-                <div class="itemBox">
-                  <div class="optionContainer">
-                    <div class="options">
-                      <a href="" class="option">
-                        Add To Cart
-                      </a>
-                    </div>
-                  </div>
-                  <div class="imgShopContainer">
-                    <img src="img/icon/iconUser.png" alt="">
-                  </div>
-                  <div class="detailBox">
-                    <h5>
-                      Women's Dress
-                    </h5>
-                    <h6>
-                      $68
-                    </h6>
-                  </div>
-                </div>
-              </div>
-
-            <div class="shopItem">
-              <div class="itemBox">
-                <div class="optionContainer">
-                  <div class="options">
-                    <a href="" class="option">
-                      Add To Cart
-                    </a>
-                  </div>
-                </div>
-                <div class="imgShopContainer">
-                  <img src="img/icon/iconUser.png" alt="">
-                </div>
-                <div class="detailBox">
-                  <h5>
-                    Women's Dress
-                  </h5>
-                  <h6>
-                    $68
-                  </h6>
-                </div>
-              </div>
-            </div>
-
-
-              <div class="shopItem">
-                <div class="itemBox">
-                  <div class="optionContainer">
-                    <div class="options">
-                      <a href="" class="option">
-                        Add To Cart
-                      </a>
-                    </div>
-                  </div>
-                  <div class="imgShopContainer">
-                    <img src="img/icon/iconUser.png" alt="">
-                  </div>
-                  <div class="detailBox">
-                    <h5>
-                      Women's Dress
-                    </h5>
-                    <h6>
-                      $68
-                    </h6>
-                  </div>
-                </div>
-              </div>
-
-          </div>
-      </section>
-
+    <div class="bg">
+      <div class="flexContainer">
+        <div class="flexbox">
+          b1
+        </div>
+        <div class="flexbox">
+          b2
+        </div>
+        <div class="flexbox">
+          b3
+        </div>
+        <div class="flexbox">
+          b4
+        </div>
+      </div>
+    </div>
   </main>
-
-  <script>
-    const subMenu = document.querySelector('.sub-menu ul').hide();
-    subMenu.addEventListener(".sub-menu a").click(function () {
-      subMenu(this).parent(".sub-menu").children("ul").slideToggle("100");
-      subMenu(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
-    });
-  </script>
 
   <footer>
     <div class="footerContainer">
@@ -353,11 +256,10 @@
       </div>
     </div>
     <div class="toTop">
-      <a href="index.html" class="topBtn">
-        <img src="img/up.png" alt="">
+      <a href="#header-block" class="topBtn">
+        <img src="img/icon/up.png" alt="">
       </a>
     </div>
   </footer>
 </body>
-
 </html>
