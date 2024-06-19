@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -23,7 +22,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 
-			ds = (DataSource) envCtx.lookup("jdbc/CoinVerter");
+			ds = (DataSource) envCtx.lookup("jdbc/coinverter");
 
 		} catch (NamingException e) {
 			System.out.println("Error:" + e.getMessage());
@@ -189,34 +188,39 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 	}
 
 	@Override
-	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized ArrayList<ProductBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
-
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
-
+		connection = ds.getConnection();
 		try {
-			connection = ds.getConnection();
+		
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY ?";
 			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, order);
+		}else {
+			preparedStatement = connection.prepareStatement(selectSQL);
+		}
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				preparedStatement = connection.prepareStatement(selectSQL);
-				preparedStatement.setString(1, bean.getName());
-				preparedStatement.setFloat(2, bean.getPrice());
-				preparedStatement.setInt(3, bean.getQuantity());
-				//preparedStatement.setEnum che non esiste...
-				preparedStatement.setString(4, bean.getType().toString());
-				preparedStatement.setString(5, bean.getName());
+				String tp = rs.getString("tipo");
+				if(tp.equals("carta")) bean.setQuantity(rs.getInt("quantità"));
+				
+				bean.setCode(rs.getInt("ID_prodotto"));
+				bean.setType(tp);
+				bean.setName(rs.getString("nome"));
+				bean.setPrice(rs.getFloat("prezzo"));
+				bean.setFoto(rs.getBlob("foto"));
+				bean.setAvailable(rs.getBoolean("disponibile"));
+				
 				products.add(bean);
 			}
 

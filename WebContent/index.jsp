@@ -52,7 +52,7 @@
       <div id="container">
         <div id="logoBox"><img id="logo" src='' alt=""></div>
         <div id="collection">
-          <div id="shop"><a href="shop.jsp"> SHOP </a></div>
+          <div id="shop"><a href="Shop"> SHOP </a></div>
         </div>
         <div class="searchContainer">
           <img id="searchIcon" src="img/icon/iconSearch.png" alt="">

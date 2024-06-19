@@ -1,19 +1,20 @@
-CREATE DATABASE IF NOT EXISTS CoinVerter;
-USE CoinVerter;
+DROP DATABASE IF EXISTS coinverter;
+CREATE DATABASE coinverter;
+USE coinverter;
 
 CREATE TABLE prodotto(
 	ID_prodotto INT NOT NULL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
    	prezzo DOUBLE NOT NULL,
     quantità INT,
-    tipo ENUM('valuta', 'crypto', 'carta'),
+    tipo ENUM('valuta', 'crypto', 'carta') NOT NULL,
 	foto MEDIUMBLOB,
-	disponibile BOOLEAN NOT NULL;
+	disponibile BOOLEAN NOT NULL
 );
 
 CREATE TABLE utente(
 	email VARCHAR(50) NOT NULL PRIMARY KEY CHECK (Email LIKE '%@%'),
-	pwd VARBINARY(50) NOT NULL;
+	pwd VARBINARY(50) NOT NULL,
 	nome VARCHAR(25) NOT NULL,
 	cognome VARCHAR(25) NOT NULL,
 	isAdmin BOOLEAN NOT NULL
@@ -28,8 +29,8 @@ CREATE TABLE ordine(
 
 
 CREATE TABLE valuta(
-	nome VARCHAR(50) NOT NULL PRIMARY KEY
-	valore DOUBLE NOT NULL;
+	nome VARCHAR(50) NOT NULL PRIMARY KEY,
+	valore DOUBLE NOT NULL
 );
 
 CREATE TABLE acquista(
@@ -37,7 +38,7 @@ CREATE TABLE acquista(
 	ID_prodotto INT NOT NULL,
 	PRIMARY KEY(Email,ID_prodotto), 
     FOREIGN KEY(Email) REFERENCES utente(Email) ON UPDATE CASCADE,
-	FOREIGN KEY(ID_brano) REFERENCES prodotto(ID_brano) ON UPDATE CASCADE
+	FOREIGN KEY(ID_prodotto) REFERENCES prodotto(ID_prodotto) ON UPDATE CASCADE
 );
 
 CREATE TABLE contiene(

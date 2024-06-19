@@ -17,6 +17,7 @@ public class ProductBean implements Serializable {
 
 	public ProductBean() {
 		price = -1;
+		quantity = -1; 
 	}
 
 	public int getCode() {
@@ -61,8 +62,8 @@ public class ProductBean implements Serializable {
 	}
 
 	public void setQuantity(int quantity) {
-		if(tipo.equals(ProductType.carta)) this.quantity = quantity;
-		else this.quantity = null;
+		this.quantity = quantity;
+		
 	}
 
 	

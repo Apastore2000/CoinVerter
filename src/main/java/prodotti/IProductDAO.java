@@ -1,6 +1,7 @@
 package prodotti;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public interface IProductDAO<T> {
@@ -12,6 +13,6 @@ public interface IProductDAO<T> {
 
 	public T doRetrieveByKey(int code) throws SQLException;
 	
-	public Collection<T> doRetrieveAll(String order) throws SQLException;
+	public ArrayList<T> doRetrieveAll(String order) throws SQLException;
 	
 }

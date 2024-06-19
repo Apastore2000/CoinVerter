@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
-<%@ page import=java.util.ArrayList,prodotti.ProductBean %>
+<%@ page import="java.util.ArrayList,prodotti.ProductBean" %>
 <%
 	HttpSession sessione = request.getSession();
 	String filtro = (String)sessione.getAttribute("filter");
 	ArrayList<ProductBean> prodotti = (ArrayList<ProductBean>)sessione.getAttribute("products");
+	if(prodotti==null || prodotti.isEmpty()){
+		response.sendRedirect(request.getContextPath()+"/Shop");
+		return;
+	}
 %>
 
 <head>
@@ -230,7 +234,57 @@
           </div>
           
           <div class="shopRow">
-
+			<% 
+			if(prodotti.isEmpty()){%>
+				<h1>ARRAYLIST PRODOTTI VUOTO</h1>	
+			<%}
+			for(ProductBean p : prodotti){ %>
+            <div class="shopItem">
+              <div class="itemBox">
+                <div class="optionContainer">
+                  <div class="options">
+                    <a href="" class="option">
+                      Aggiungi al carrello
+                    </a>
+                  </div>
+                </div>
+                <div class="imgShopContainer">
+                  <img src="img/icon/iconUser.png" alt="">
+                </div>
+                <div class="detailBox">
+                  <h5>
+                    <%= p.getName() %>
+                  </h5>
+                  <h6>
+                    <%= p.getPrice() %>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <%}%>
+              <%-- <div class="shopItem">
+                <div class="itemBox">
+                  <div class="optionContainer">
+                    <div class="options">
+                      <a href="" class="option">
+                        Add To Cart
+                      </a>
+                    </div>
+                  </div>
+                  <div class="imgShopContainer">
+                    <img src="img/icon/iconUser.png" alt="">
+                  </div>
+                  <div class="detailBox">
+                    <h5>
+                      <%prodotti.get(0).getName(); %>
+                    </h5>
+                    <h6>
+                      <%prodotti.get(0).getPrice(); %>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+			--%>
             <div class="shopItem">
               <div class="itemBox">
                 <div class="optionContainer">
@@ -253,6 +307,8 @@
                 </div>
               </div>
             </div>
+
+			<%--
               <div class="shopItem">
                 <div class="itemBox">
                   <div class="optionContainer">
@@ -274,54 +330,7 @@
                     </h6>
                   </div>
                 </div>
-              </div>
-
-            <div class="shopItem">
-              <div class="itemBox">
-                <div class="optionContainer">
-                  <div class="options">
-                    <a href="" class="option">
-                      Add To Cart
-                    </a>
-                  </div>
-                </div>
-                <div class="imgShopContainer">
-                  <img src="img/icon/iconUser.png" alt="">
-                </div>
-                <div class="detailBox">
-                  <h5>
-                    Women's Dress
-                  </h5>
-                  <h6>
-                    $68
-                  </h6>
-                </div>
-              </div>
-            </div>
-
-
-              <div class="shopItem">
-                <div class="itemBox">
-                  <div class="optionContainer">
-                    <div class="options">
-                      <a href="" class="option">
-                        Add To Cart
-                      </a>
-                    </div>
-                  </div>
-                  <div class="imgShopContainer">
-                    <img src="img/icon/iconUser.png" alt="">
-                  </div>
-                  <div class="detailBox">
-                    <h5>
-                      Women's Dress
-                    </h5>
-                    <h6>
-                      $68
-                    </h6>
-                  </div>
-                </div>
-              </div>
+              </div> --%>
 
           </div>
       </section>
