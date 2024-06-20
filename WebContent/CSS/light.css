@@ -19,7 +19,7 @@ body {
     background-color: #f5f5f5;
     margin: 0 auto;
     text-align: center;
-    width: 100%;
+    width: 100vw;
     display: grid;
     grid-gap: 15px;
     grid-template-columns: 1.5fr 2.1fr 4.9fr 0.5fr;
@@ -57,7 +57,7 @@ body {
     align-items: center;
 }
 
-#shop {
+#ref {
     text-align: center;
 }
 
@@ -110,6 +110,7 @@ body {
     animation-name: disappear;
 }
 */
+
 
 #searchIconBtn {
     margin: 4px;

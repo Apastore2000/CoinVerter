@@ -30,7 +30,7 @@
 
   <!--Header-->
 
-  <script>
+  <!-- <script>
     function switchLogo() {
       var logo = document.getElementById('logo');
       var logoSrc = window.innerWidth <= 850 ? 'img/logo.png' : 'img/logoName.png';
@@ -41,13 +41,14 @@
     
     function Ricerca(){
     	let filtro = document.getElementById("inputbar").value;
-    	sessionStorage.setItem("filter",filtro);
-    }
+    	sessionStorage.setItem("filter",filtro);	 
+  </script> -->
+  
+  <jsp:include page='header.jsp'>
+  		<jsp:param name = "pageTitle" value="SHOP"/>
+  </jsp:include>
 
-    }
-  </script>
-
-  <header id="header-block">
+  <!-- <header id="header-block">
     <section>
       <div id="container">
         <div id="logoBox"><img id="logo" src='' alt=""></div>
@@ -60,13 +61,13 @@
             <img id="searchIconBtn" src="img/icon/iconSearch.png" alt="" isOpenSearchbar>
           </button>
           <input type="text" id="input" name="searchBox" placeholder="Search...">
-          <!--implementare lmodo per inviare la ricerca-->
+          implementare lmodo per inviare la ricerca
         </div>
         <div id="toggle">
           <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
             <div class="position">
               <img class="icon" src="img/icon/iconUser.png" alt="">
-              <!--implementare lo switch dell'icona quando l'utente è loggato-->
+              implementare lo switch dell'icona quando l'utente è loggato
               <span class="caption">LOGIN</span>
             </div>
           </div>
@@ -86,8 +87,11 @@
         </div>
       </div>
     </section>
-  </header>
-
+  </header> -->
+	<script src="JS/scripts.js">
+	window.addEventListener('load', switchLogo);
+    window.addEventListener('resize', switchLogo);
+	</script>
   <div class="searchbar" hidden>
     <div class="searchbarOverlay"></div>
     <div class="searchbarContent">
@@ -232,34 +236,14 @@
       </div>
     </div>
   </main>
-
-  <footer>
-    <div class="footerContainer">
-      <div class="footerFlexbox">
-        <img id="footerLogo" src="img/logoName.png" alt="">
-      </div>
-      <div class="footerFlexbox">
-        <div class="menu">
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footerFlexbox">
-        <div class="social">
-          <a href="" target="_blank"><img src="img/social/insta.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/x.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/youtube.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/linkedin.png" alt=""></a>
-        </div>
-      </div>
-    </div>
-    <div class="toTop">
-      <a href="#header-block" class="topBtn">
+  <div class="toTop">
+      <a href="#" class="topBtn">
         <img src="img/icon/up.png" alt="">
       </a>
-    </div>
-  </footer>
+  </div>
+<jsp:include page="footer.html"/>
+
+
+  
 </body>
 </html>
