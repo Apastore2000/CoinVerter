@@ -19,7 +19,7 @@ body {
     background-color: #f5f5f5;
     margin: 0 auto;
     text-align: center;
-    width: 100vw;
+    width: 100%;
     display: grid;
     grid-gap: 15px;
     grid-template-columns: 1.5fr 2.1fr 4.9fr 0.5fr;
@@ -57,7 +57,7 @@ body {
     align-items: center;
 }
 
-#ref {
+#shop {
     text-align: center;
 }
 
@@ -110,7 +110,6 @@ body {
     animation-name: disappear;
 }
 */
-
 
 #searchIconBtn {
     margin: 4px;
@@ -589,6 +588,7 @@ main {
 /*footer*/
 
 footer {
+    float: unset;
     font-family: 'Lato', sans-serif;
     margin: 0;
     bottom: 0;
@@ -801,9 +801,142 @@ footer a:hover {
 
 /* shop Page -------------------------------------------------------------------------------------------*/
 
+
+.menuBar {
+    background-color: white;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    z-index: 4;
+    top: 110px;
+    overflow: auto;
+    transition: 0.3s;
+    transition-property: left;
+}
+
+.menuBar header {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 15px;
+}
+
+.menuBar header h4 {
+    font-weight: 600;
+}
+
+#closeBtn {
+    display: none;
+}
+
+.menuBar header .icon {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    transition: all 0.3s;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.menuBar header .icon:hover {
+    background-color: #dfdfdf;
+}
+
+.category {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.category .categoryItem {
+    position: relative;
+    cursor: pointer;
+}
+
+.category .subMenuBtn:hover {
+    border-left: solid 5px;
+    border-color: #FFF350;
+    background-color: #f5f5f5;
+}
+
+.category .selectionMenu:hover {
+    border-left: solid 5px;
+    border-color: #FFF350;
+    background-color: #f5f5f5;
+}
+
+.category .categoryItem a {
+    color: #444B54;
+    text-decoration: none;
+    display: block;
+    padding: 5px 30px;
+    line-height: 60px;
+}
+
+.categoryItem .categoryIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+
+.categoryItem a .dropdown {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    transition: 0.2s;
+}
+
+.categoryItem .subMenu {
+    background-color: #f7f8f9;
+    display: none;
+}
+
+.categoryItem .subMenu .subItem:hover {
+    border-left: solid 5px;
+    border-color: #FFF350;
+    background-color: #f5f5f5;
+}
+
+.menuBar.active {
+    left: 0;
+}
+
+.categoryItem .subMenu a {
+    padding-left: 80px;
+}
+
+.menuBar::-webkit-scrollbar {
+    width: 0px;
+}
+
+.rotate {
+    transform: rotate(90deg);
+    transition: 0.2s;
+}
+
+.menuBtn {
+    position: absolute;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+    background-color: #3ab4a6;
+    display: none;
+}
+
 .shop {
     padding-bottom: 25px;
     height: 100%;
+    margin-left: 250px;
 }
 
 .headerShopContainer {
@@ -821,7 +954,7 @@ footer a:hover {
 }
 
 .shopItem {
-    flex:1;
+    flex: 1;
     text-align: center;
     position: relative;
     padding-right: 15px;
@@ -840,7 +973,7 @@ footer a:hover {
 }
 
 .optionContainer {
-    position: absolute;    
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -913,121 +1046,6 @@ footer a:hover {
     font-weight: 600;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,200);
-#cssmenu,
-#cssmenu ul,
-#cssmenu ul li,
-#cssmenu ul li a {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  list-style: none;
-  line-height: 1;
-  display: block;
-  position: relative;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-#cssmenu {
-  width: 220px;
-  font-family: Raleway, sans-serif;
-  color: #ffffff;
-}
-#cssmenu ul ul {
-  display: none;
-}
-#cssmenu > ul > li.active > ul {
-  display: block;
-}
-.align-right {
-  float: right;
-}
-#cssmenu > ul > li > a {
-  padding: 16px 22px;
-  cursor: pointer;
-  z-index: 2;
-  font-size: 16px;
-  text-decoration: none;
-  color: #ffffff;
-  background: #3ab4a6;
-  -webkit-transition: color .2s ease;
-  -o-transition: color .2s ease;
-  transition: color .2s ease;
-}
-#cssmenu > ul > li > a:hover {
-  color: #d8f3f0;
-}
-#cssmenu ul > li.has-sub > a:after {
-  position: absolute;
-  right: 26px;
-  top: 19px;
-  z-index: 5;
-  display: block;
-  height: 10px;
-  width: 2px;
-  background: #ffffff;
-  content: "";
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -ms-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-}
-#cssmenu ul > li.has-sub > a:before {
-  position: absolute;
-  right: 22px;
-  top: 23px;
-  display: block;
-  width: 10px;
-  height: 2px;
-  background: #ffffff;
-  content: "";
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -ms-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-}
-#cssmenu ul > li.has-sub.open > a:after,
-#cssmenu ul > li.has-sub.open > a:before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-#cssmenu ul ul li a {
-  padding: 14px 22px;
-  cursor: pointer;
-  z-index: 2;
-  font-size: 14px;
-  text-decoration: none;
-  color: #dddddd;
-  background: #49505a;
-  -webkit-transition: color .2s ease;
-  -o-transition: color .2s ease;
-  transition: color .2s ease;
-}
-
-#cssmenu ul ul li a:hover {
-  color: #ffffff;
-}
-#cssmenu ul ul > li.has-sub > a:after {
-  top: 16px;
-  right: 26px;
-  background: #dddddd;
-}
-#cssmenu ul ul > li.has-sub > a:before {
-  top: 20px;
-  background: #dddddd;
-}
-
-
-
-
-
-
 
 @media screen and (max-width: 900px) {
     .shopItem {
@@ -1035,6 +1053,29 @@ footer a:hover {
         margin-right: 25px;
     }
 }
+
+@media screen and (max-width: 750px) {
+
+}
+
+@media screen and (max-width: 650px) {
+    #closeBtn {
+        display: block;
+    }
+
+    .menuBtn {
+        display: block;
+    }
+    .shop {
+        margin-left: 0px;
+    }
+
+    .menuBar {
+        width: 100%;
+        left: -100%;
+    }
+}
+
 
 /*
 .shop {
@@ -1501,6 +1542,4 @@ footer a:hover {
         flex: 0 0 100%;
         max-width: 100%;
     }
-
-	
 }
