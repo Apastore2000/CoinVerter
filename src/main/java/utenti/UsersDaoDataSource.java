@@ -1,5 +1,6 @@
 package utenti;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import prodotti.ProductBean;
-import prodotti.ProductDaoDataSource;
 
 public class UsersDaoDataSource implements IUsersDAO<User> {
 
@@ -38,6 +37,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		
 
 		String insertSQL = "INSERT INTO " + UsersDaoDataSource.TABLE_NAME
 				+ " (email, pwd, nome, cognome, isAdmin) VALUES (?, ?, ?, ?, ?)";
@@ -48,7 +48,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 			preparedStatement.setString(3, utente.getNome());
 			preparedStatement.setString(4, utente.getCognome());
 			preparedStatement.setString(1, utente.getEmail());
-			preparedStatement.setBytes(2, utente.getPwd());
+			preparedStatement.setString(2, utente.getPwd());
 			preparedStatement.setBoolean(5, utente.isAdmin());
 
 			preparedStatement.executeUpdate();
@@ -117,7 +117,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
-				bean.setPwd(rs.getBytes("pwd"));
+				bean.setPwd(rs.getString("pwd"));
 				bean.setAdmin(rs.getBoolean("isAdmin"));
 				products.add(bean);
 			}
@@ -155,7 +155,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
-				bean.setPwd(rs.getBytes("pwd"));
+				bean.setPwd(rs.getString("pwd"));
 				bean.setAdmin(rs.getBoolean("isAdmin"));
 			}
 
@@ -169,6 +169,12 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 			}
 		}
 		return bean;
+	
 	}
+
+
+	
+	
+	
 
 }

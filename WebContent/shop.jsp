@@ -3,7 +3,6 @@
 <%@ page import="java.util.ArrayList,prodotti.ProductBean" %>
 <%
 	HttpSession sessione = request.getSession();
-	String filtro = (String)sessione.getAttribute("filter");
 	ArrayList<ProductBean> prodotti = (ArrayList<ProductBean>)sessione.getAttribute("products");
 	if(prodotti==null || prodotti.isEmpty()){
 		response.sendRedirect(request.getContextPath()+"/Shop");
@@ -20,7 +19,7 @@
   <title>CoinVerter</title>
 </head>
 
-<body>
+<body onresize="switchLogo()" onload="switchLogo()">
   <!--  <script type="text/javascript">
         var setTheme = localStorage.getItem('theme')
         console.log('theme:', setTheme)
@@ -49,56 +48,21 @@
     window.addEventListener('load', switchLogo);
     window.addEventListener('resize', switchLogo);
   </script>
-
-  <header id="header-block">
-    <section>
-      <div id="container">
-        <div id="logoBox"><img id="logo" src='' alt=""></div>
-        <div id="collection">
-          <div id="shop"><a href="index.jsp"> HOME </a></div>
-        </div>
-        <div class="searchContainer">
-          <img id="searchIcon" src="img/icon/iconSearch.png" alt="">
-          <button id="searchBtn">
-            <img id="searchIconBtn" src="img/icon/iconSearch.png" alt="" isOpenSearchbar>
-          </button>
-          <input type="text" id="input" name="searchBox" placeholder="Search...">
-          <!--implementare lmodo per inviare la ricerca-->
-        </div>
-        <div id="toggle">
-          <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
-            <div class="position">
-              <img class="icon" src="img/icon/iconUser.png" alt="">
-              <!--implementare lo switch dell'icona quando l'utente è loggato-->
-              <span class="caption">LOGIN</span>
-            </div>
-          </div>
-          <div class="cartContainer">
-            <div class="position">
-              <div class="badge yellow"> 0 </div>
-              <a href="cart.html"><img class="icon" src="img/icon/iconCart.png" alt=""></a>
-              <span class="caption">CART</span>
-            </div>
-          </div>
-          <div class="cartContainer" isOpenSidebar>
-            <div class="position">
-              <img class="icon" src="img/icon/iconWallet.png" alt="">
-              <span class="caption">WALLET</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </header>
+	
+	<jsp:include page='header.jsp'>
+  		<jsp:param name = "PageTitle" value="shop"/>
+  </jsp:include>
+  
+  
 
   <div class="searchbar" hidden>
     <div class="searchbarOverlay"></div>
     <div class="searchbarContent">
       <div class="searchbarBody">
         <input type="text" id="inputbar" name="searchBox" placeholder="Search...">
-        <button class="btn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
+        <button class="sBtn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
       </div>
-      <button class="btn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
+      <button class="sBtn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
     </div>
   </div>
 

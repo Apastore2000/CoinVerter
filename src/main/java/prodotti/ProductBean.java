@@ -15,9 +15,15 @@ public class ProductBean implements Serializable {
 	Blob foto;
 	boolean available;
 
+	
 	public ProductBean() {
+		code = -1;
+		name = "";
 		price = -1;
-		quantity = -1; 
+		quantity = -1;
+		tipo = null;
+		foto = null;
+		available = true;
 	}
 
 	public int getCode() {

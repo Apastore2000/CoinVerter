@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="it" dir="ltr">
+<html lang="it" dir="ltr"> 
 
 <head>
   <link rel="shortcut icon" type="image/gif" href="img/logo.png">
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
-
+	
   <title>CoinVerter</title>
 </head>
 
-<body>
+<body onresize="switchLogo()" onload="switchLogo()">
   <!--  <script type="text/javascript">
         var setTheme = localStorage.getItem('theme')
         console.log('theme:', setTheme)
@@ -28,67 +28,21 @@
         }
     </script>-->
 
-  <!--Header-->
-
-  <script>
-    function switchLogo() {
-      var logo = document.getElementById('logo');
-      var logoSrc = window.innerWidth <= 850 ? 'img/logo.png' : 'img/logoName.png';
-      logo.src = logoSrc;
-    }
-    window.addEventListener('load', switchLogo);
-    window.addEventListener('resize', switchLogo);
-  </script>
-
-  <header id="header-block">
-    <section>
-      <div id="container">
-        <div id="logoBox"><img id="logo" src='' alt=""></div>
-        <div id="collection">
-          <div id="shop"><a href="index.html"> HOME </a></div>
-        </div>
-        <div class="searchContainer">
-          <img id="searchIcon" src="img/icon/iconSearch.png" alt="">
-          <button id="searchBtn">
-            <img id="searchIconBtn" src="img/icon/iconSearch.png" alt="" isOpenSearchbar>
-          </button>
-          <input type="text" id="input" name="searchBox" placeholder="Search...">
-          <!--implementare lmodo per inviare la ricerca-->
-        </div>
-        <div id="toggle">
-          <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
-            <div class="position">
-              <img class="icon" src="img/icon/iconUser.png" alt="">
-              <!--implementare lo switch dell'icona quando l'utente è loggato-->
-              <span class="caption">LOGIN</span>
-            </div>
-          </div>
-          <div class="cartContainer">
-            <div class="position">
-              <div class="badge yellow"> 0 </div>
-              <a href="cart.html"><img class="icon" src="img/icon/iconCart.png" alt=""></a>
-              <span class="caption">CART</span>
-            </div>
-          </div>
-          <div class="cartContainer" isOpenSidebar>
-            <div class="position">
-              <img class="icon" src="img/icon/iconWallet.png" alt="">
-              <span class="caption">WALLET</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </header>
+  <!--Header--> 
+	
+	<jsp:include page='header.jsp'>
+  		<jsp:param name = "PageTitle" value="cart"/>
+  </jsp:include>
+  
 
   <div class="searchbar" hidden>
     <div class="searchbarOverlay"></div>
     <div class="searchbarContent">
       <div class="searchbarBody">
         <input type="text" id="inputbar" name="searchBox" placeholder="Search...">
-        <button class="btn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
+        <button class="sBtn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
       </div>
-      <button class="btn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
+      <button class="sBtn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
     </div>
   </div>
 
@@ -275,34 +229,9 @@
     <script src="app.js"></script>
   </main>
 
-  <footer>
-    <div class="footerContainer">
-      <div class="footerFlexbox">
-        <img id="footerLogo" src="img/logoName.png" alt="">
-      </div>
-      <div class="footerFlexbox">
-        <div class="menu">
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footerFlexbox">
-        <div class="social">
-          <a href="" target="_blank"><img src="img/social/insta.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/x.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/youtube.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/linkedin.png" alt=""></a>
-        </div>
-      </div>
-    </div>
-    <div class="toTop">
-      <a href="cart.html" class="topBtn">
-        <img src="img/up.png" alt="">
-      </a>
-    </div>
-  </footer>
+	<jsp:include page= "footer.html"></jsp:include>
+  
+  <script type="text/javascript" src="JS/scripts.js"></script>
 </body>
 
 </html>

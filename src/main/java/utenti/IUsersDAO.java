@@ -12,4 +12,6 @@ public interface IUsersDAO<User> {
 	
 	public Collection<User> doRetrieveAll(String order) throws SQLException;
 	
+	//public boolean doFlipAdmin(User user) throws SQLException;
+	
 }

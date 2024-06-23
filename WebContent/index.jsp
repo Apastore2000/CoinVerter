@@ -2,6 +2,7 @@
 <html lang="it" dir="ltr">
 
 <head>
+<script type="text/javascript" src="JS/scripts.js"></script>
   <link rel="shortcut icon" type="image/gif" href="img/logo.png">
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
@@ -10,7 +11,7 @@
   <title>CoinVerter</title>
 </head>
 
-<body>
+<body onresize="switchSuite()" onload="switchSuite()">
   <!--  <script type="text/javascript">
         var setTheme = localStorage.getItem('theme')
         console.log('theme:', setTheme)
@@ -45,7 +46,7 @@
   </script> -->
   
   <jsp:include page='header.jsp'>
-  		<jsp:param name = "pageTitle" value="SHOP"/>
+  		<jsp:param name = "PageTitle" value="index"/>
   </jsp:include>
 
   <!-- <header id="header-block">
@@ -88,11 +89,8 @@
       </div>
     </section>
   </header> -->
-	<script src="JS/scripts.js">
-	window.addEventListener('load', switchLogo);
-    window.addEventListener('resize', switchLogo);
-	</script>
-  <div class="searchbar" hidden>
+	
+ <!--  <div class="searchbar" hidden>
     <div class="searchbarOverlay"></div>
     <div class="searchbarContent">
       <div class="searchbarBody">
@@ -114,9 +112,9 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <script>
+  <!-- <script>
     function openSidebar() {
       const isSidebar = document.querySelector("[isOpenSidebar]");
       const sidebar = document.querySelector(".sidebar");
@@ -216,13 +214,13 @@
       if(obj == null)window.location.replace("Coinverter/login.jsp");
     }
     */
-  </script>
+  </script> -->
 
   <main class="bgPage">
     <div class="bg">
       <div class="flexContainer">
-        <div class="flexbox">
-          b1
+        <div class="flexbox" >
+         	b1
         </div>
         <div class="flexbox">
           b2
@@ -241,6 +239,7 @@
         <img src="img/icon/up.png" alt="">
       </a>
   </div>
+  
 <jsp:include page="footer.html"/>
 
 

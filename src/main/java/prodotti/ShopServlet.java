@@ -27,18 +27,27 @@ public class ShopServlet extends HttpServlet {
 	
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			HttpSession sessione = request.getSession();
+			String filtro = (String) request.getParameter("filter");
+			System.out.print(filtro);
 			ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
-			
 			ProductDaoDataSource source = new ProductDaoDataSource();
+			
 			try {
-				prodotti = source.doRetrieveAll("");
+				if(filtro != null && filtro.length() != 0) {
+					prodotti = source.doRetrieveByName(filtro);
+				}else {
+					prodotti = source.doRetrieveAll("");
+				}
 			} catch (SQLException e) {
-				System.out.print(e);
-			}	
+			e.printStackTrace();
+			}finally {
+			
 			sessione.setAttribute("products", prodotti);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop.jsp");
 	        dispatcher.forward(request, response);
 			}
+		}
+		
 		
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			doPost(request,response);

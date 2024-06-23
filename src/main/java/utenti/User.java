@@ -2,12 +2,10 @@ package utenti;
 
 import java.util.HashMap;
 
-import prodotti.ProductBean;
 
 public class User {
 
-	private String nome,cognome,email;
-	private byte[] pwd;
+	private String nome,cognome,email,pwd;
 	private boolean isAdmin = false;
 	HashMap<String, Integer> portafoglio;
 	// ProductBean[] portafoglio; 
@@ -51,12 +49,12 @@ public class User {
 		return isAdmin;
 	}
 
-	public byte[] getPwd() {
+	public String getPwd() {
 		return pwd;
 	}
 
-	public void setPwd(byte[] pwd) {
-		System.arraycopy(pwd, 0,this.pwd, 0,pwd.length);
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
 	// la possibilità di rendere un account admin è da discutere

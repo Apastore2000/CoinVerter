@@ -187,6 +187,52 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		return (result != 0);
 	}
 
+	
+	
+	
+	
+	@Override
+	public ArrayList<ProductBean> doRetrieveByName(String name) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<ProductBean> beanz = new ArrayList<ProductBean>();
+
+		String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE nome = ?";
+
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectNameSQL);
+			preparedStatement.setString(1, name);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setCode(rs.getInt("ID_prodotto"));
+				bean.setName(rs.getString("nome"));
+				bean.setType(rs.getString("tipo"));
+				bean.setFoto(rs.getBlob("foto"));
+				bean.setPrice((float)rs.getDouble("prezzo"));
+				beanz.add(bean);
+			
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return beanz;
+	}
+
+
+
 	@Override
 	public synchronized ArrayList<ProductBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;

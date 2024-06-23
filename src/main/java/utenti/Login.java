@@ -1,13 +1,9 @@
 package utenti;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.sql.SQLException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import utenti.UsersDaoDataSource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,17 +37,8 @@ public class Login extends HttpServlet {
             	return; // note the return statement here!!!
             }
             username = username.trim();
-            password = password.trim();
-            MessageDigest digest = null;
-			try {
-				digest = MessageDigest.getInstance("SHA-256");
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            byte[] hashPwd = digest.digest(
-            		  password.getBytes(StandardCharsets.UTF_8));
-            
+            password = Encrypter.hashPassword(password.trim()); 
+           
             try {
 				u = d.doRetrieveByName(username);
 			} catch (SQLException e) {
@@ -61,15 +48,8 @@ public class Login extends HttpServlet {
             
 			
             //check valid password
-            if(Arrays.equals(hashPwd, u.getPwd()))///
-            
-            
-			if(username.equals("admin") && password.equals("mypass")){ //admin
-				request.getSession().setAttribute("isAdmin", Boolean.TRUE); //inserisco il token nella sessione
-				response.sendRedirect("admin/protected.jsp");
-			} else if (username.equals("user") && password.equals("mypass")){ //user
-				request.getSession().setAttribute("isAdmin", Boolean.FALSE); //inserisco il token nella sessione
-				response.sendRedirect("common/protected.jsp");
+            if(u.getPwd().equals(password)) {
+            	request.getSession().setAttribute("user", u);
 			} else {
 				errors.add("Username o password non validi!");
 				request.setAttribute("errors", errors);
@@ -79,5 +59,7 @@ public class Login extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}	
 }
