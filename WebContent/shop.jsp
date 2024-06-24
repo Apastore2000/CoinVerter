@@ -19,7 +19,7 @@
   <title>CoinVerter</title>
 </head>
 
-<body onresize="switchLogo()" onload="switchLogo()">
+<body id="" onresize="switchSuite()" onload="switchSuite()">
   <!--  <script type="text/javascript">
         var setTheme = localStorage.getItem('theme')
         console.log('theme:', setTheme)
@@ -79,118 +79,48 @@
     </div>
   </div>
 
-  <script>
-    function openSidebar() {
-      const isSidebar = document.querySelector("[isOpenSidebar]");
-      const sidebar = document.querySelector(".sidebar");
-      const sidebarOverlay = document.querySelector(".sidebarOverlay");
-      const closeSidebar = document.querySelector(".sidebarHeader .icon");
+  
 
-      isSidebar.addEventListener("click", (e) => {
-        console.log("Clicked sidebar toggle");
-        if (sidebar.classList.contains("show")) {
-          sidebar.classList.remove("show");
-          sidebar.classList.add("hidden");
-        }
-        else {
-          sidebar.classList.add("show");
-          sidebar.classList.remove("hidden");
-        }
-      });
-
-      sidebarOverlay.addEventListener("click", (e) => {
-        console.log("Clicked sidebar overlay");
-        sidebar.classList.remove("show");
-        sidebar.classList.add("hidden");
-      });
-
-      closeSidebar.addEventListener("click", (e) => {
-        console.log("Clicked close sidebar button");
-        sidebar.classList.remove("show");
-        sidebar.classList.add("hidden");
-      });
-    }
-    openSidebar();
-  </script>
-
-  <script>
-    function openSearchbar() {
-      const isSearchbar = document.querySelector("[isOpenSearchbar]");
-      const searchbar = document.querySelector(".searchbar");
-      const searchbarOverlay = document.querySelector(".searchbarOverlay");
-      const closeSearchbar = document.querySelector(".searchbar .btn");
-      //const btn =  document.querySelector("#searchBtn");
-
-      isSearchbar.addEventListener("click", (e) => {
-        console.log("Clicked sidebar toggle");
-        if (searchbar.classList.contains("show")) {
-          searchbar.classList.remove("show");
-          searchbar.classList.add("hidden");
-          //btn.classList.add("show");
-          //btn.classList.remove("hidden");
-        }
-        else {
-          searchbar.classList.add("show");
-          searchbar.classList.remove("hidden");
-          //btn.classList.remove("show");
-          //btn.classList.add("hidden");
-        }
-      });
-
-      searchbarOverlay.addEventListener("click", (e) => {
-        console.log("Clicked searchbar overlay");
-        searchbar.classList.remove("show");
-        searchbar.classList.add("hidden");
-        //btn.classList.add("show");
-        //btn.classList.remove("hidden");
-      });
-
-      closeSearchbar.addEventListener("click", (e) => {
-        console.log("Clicked close searchbar button");
-        searchbar.classList.remove("show");
-        searchbar.classList.add("hidden");
-        //btn.classList.add("show");
-        //btn.classList.remove("hidden");
-      });
-
-    }
-    openSearchbar();
-
-    function closeSearchbar() {
-      const searchbar = document.querySelector(".searchbar");
-      //const btn =  document.querySelector("#searchBtn");
-      searchbar.classList.remove("show");
-      searchbar.classList.add("hidden");
-      //btn.classList.add("hidden");
-    }
-    function checkWindowWidth() {
-      const searchbar = document.querySelector(".searchbar");
-      if (window.innerWidth > 850 && searchbar.classList.contains("show")) {
-        closeSearchbar();
-      }
-    }
-    window.addEventListener("resize", checkWindowWidth);
-    checkWindowWidth();
-  </script>
-
+  
   <main class="bgPage">
-     <!--<nav class='animated bounceInDown'>
-        <ul>
-          <li class='sub-menu'><a href="">Valute<div class='fa fa-caret-down right'></div></a>
-            <ul>
-              <li><a href='#settings'>Fisica</a></li>
-              <li><a href='#settings'>Digitale</a></li>
-            </ul>
-          </li>
-          <li class='sub-menu'><a href='#message'>carte<div class='fa fa-caret-down right'></div></a>
-            <ul>
-              <li><a href='#settings'>Card</a></li>
-              <li><a href='#settings'>Gift Card</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>-->
+  <div class="bgshop">
+   	 <section>
+      <div class="menuBar">
+        <header>
+          <h4>CATEGORIE</h4>
+          <img id="closeBtn" class="icon" src="img/icon/iconX.png" alt="">
+        </header>
+
+        <div class="category">
+          <div class="categoryItem">
+            <a class="selectionMenu">
+              <img class="categoryIcon" src="img/icon/iconCurrency.png" alt="">Valute
+            </a>
+          </div>
+          <div class="categoryItem">
+            <a class="selectionMenu">
+              <img class="categoryIcon" src="img/icon/iconCrypto.png" alt="">Cryptovalute
+            </a>
+          </div>
+          <div class="categoryItem">
+            <a class="subMenuBtn">
+              <img class="categoryIcon" src="img/icon/iconCard.png" alt="">Card
+              <img class="dropdown" src="img/icon/right.png" alt="">
+            </a>
+            <div class="subMenu">
+              <a class="subItem" href="">Carte</a>
+              <a class="subItem" href="">Ricariche</a>
+              <a class="subItem" href="">Gift Card</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+    
+    
+    
       <section class="shop">
+      	
           <div class="headerShopContainer">
             <h2>
               Our <span>products</span>
@@ -297,7 +227,9 @@
               </div> --%>
 
           </div>
+        
       </section>
+       </div>
 
   </main>
 

@@ -28,7 +28,6 @@ public class ShopServlet extends HttpServlet {
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			HttpSession sessione = request.getSession();
 			String filtro = (String) request.getParameter("filter");
-			System.out.print(filtro);
 			ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
 			ProductDaoDataSource source = new ProductDaoDataSource();
 			

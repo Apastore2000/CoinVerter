@@ -2,13 +2,13 @@
     pageEncoding="UTF-8" import="utenti.User,coin.Carrello,prodotti.ProductBean"%>
  
 <%
+	Carrello cart = new Carrello();
 	String name = request.getParameter("PageTitle");
 	String ref = new String();
 	String link = new String();
 	User user = (User)session.getAttribute("user");
-	ProductBean p = new ProductBean();
-	Carrello cart = new Carrello();
-	cart.addProduct(p);
+	ProductBean pr = new ProductBean();
+	cart.addProduct(pr);
 	
 	switch(name){
 	case "shop":
@@ -46,7 +46,7 @@
             <img id="searchIconBtn" onclick="openSearchbar(this.id)" src="img/icon/iconSearch.png" alt="" isOpenSearchbar>
           </button>
           <input type="text" id="input" name="searchBox" placeholder="Search...">
-          <!--implementare lmodo per inviare la ricerca-->
+         
         </div>
         
         <div id="toggle">
@@ -91,7 +91,7 @@
           
           <div class="cartContainer">
             <div class="position">
-              <div class="badge yellow"><%cart.getCount(); %>  </div>
+              <div class="badge yellow"><%= cart.getCount() %>  </div>
               <a href="cart.jsp"><img class="icon" src="img/icon/iconCart.png" alt=""></a>
               <span class="caption">CART</span>
             </div>

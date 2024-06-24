@@ -13,7 +13,7 @@ public class Carrello {
 	private int count;
 	
 	public Carrello() {
-		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+		products = new ArrayList<ProductBean>();
 		count = 0;
 	}
 	
@@ -35,6 +35,6 @@ public class Carrello {
 	}
 	
 	public ArrayList<ProductBean> getProducts() {
-		return  products;
+		return products;
 	}
 }

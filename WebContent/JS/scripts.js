@@ -13,8 +13,6 @@
     	if(size == "big") filtro = document.getElementById("input").value;
     	else if(size == "small")filtro = document.getElementById("inputbar").value;
     	
-    	console.log(filtro);
-    	
 		var currentURL = window.location.href;
     	window.location.href =  currentURL.substring(0, currentURL.lastIndexOf('/') + 1) + 'Shop?filter=' + filtro.toLowerCase()
 
