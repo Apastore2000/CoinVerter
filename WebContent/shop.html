@@ -87,9 +87,9 @@
     <div class="searchbarContent">
       <div class="searchbarBody">
         <input type="text" id="inputbar" name="searchBox" placeholder="Search...">
-        <button class="btn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
+        <button class="sBtn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
       </div>
-      <button class="btn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
+      <button class="sBtn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
     </div>
   </div>
 
@@ -145,7 +145,7 @@
       const isSearchbar = document.querySelector("[isOpenSearchbar]");
       const searchbar = document.querySelector(".searchbar");
       const searchbarOverlay = document.querySelector(".searchbarOverlay");
-      const closeSearchbar = document.querySelector(".searchbar .btn");
+      const closeSearchbar = document.querySelector(".searchbar .sBtn");
       //const btn =  document.querySelector("#searchBtn");
 
       isSearchbar.addEventListener("click", (e) => {
@@ -233,7 +233,7 @@
         </div>
       </div>
     </section>
-
+<div class="bgShop">
     <section class="shop" id="shop">
       <div class="headerShopContainer">
         <div class="menuBtn">
@@ -243,7 +243,6 @@
           Our <span>products</span>
         </h2>
       </div>
-
       <div class="shopRow">
 
         <div class="shopItem">
@@ -268,28 +267,6 @@
             </div>
           </div>
         </div>
-        <div class="shopItem">
-          <div class="itemBox">
-            <div class="optionContainer">
-              <div class="options">
-                <a href="" class="option">
-                  Add To Cart
-                </a>
-              </div>
-            </div>
-            <div class="imgShopContainer">
-              <img src="img/icon/iconUser.png" alt="">
-            </div>
-            <div class="detailBox">
-              <h5>
-                Women's Dress
-              </h5>
-              <h6>
-                $68
-              </h6>
-            </div>
-          </div>
-        </div>
 
         <div class="shopItem">
           <div class="itemBox">
@@ -334,11 +311,35 @@
                 $68
               </h6>
             </div>
+          </div>
+        </div>
+
+        <div class="shopItem">
+          <div class="itemBox">
+            <div class="optionContainer">
+              <div class="options">
+                <a href="" class="option">
+                  Add To Cart
+                </a>
+              </div>
+            </div>
+            <div class="imgShopContainer">
+              <img src="img/icon/iconUser.png" alt="">
+            </div>
+            <div class="detailBox">
+              <h5>
+                Women's Dress
+              </h5>
+              <h6>
+                $68
+              </h6>
+            </d+ùiv>
           </div>
         </div>
 
       </div>
     </section>
+  </div>
   </main>
 
   <footer>
@@ -364,7 +365,7 @@
       </div>
     </div>
     <div class="toTop">
-      <a href="index.html" class="topBtn">
+      <a href="#" class="topBtn">
         <img src="img/up.png" alt="">
       </a>
     </div>
@@ -393,5 +394,6 @@
       });
     });
   </script>
+  
 </body>
 </html>
