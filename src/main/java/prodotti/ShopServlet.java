@@ -35,7 +35,7 @@ public class ShopServlet extends HttpServlet {
 				if(filtro != null && filtro.length() != 0) {
 					prodotti = source.doRetrieveByName(filtro);
 				}else {
-					prodotti = source.doRetrieveAll("");
+					prodotti = source.doRetrieveAvailable();
 				}
 			} catch (SQLException e) {
 			e.printStackTrace();

@@ -198,13 +198,13 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
 		ArrayList<ProductBean> beanz = new ArrayList<ProductBean>();
 
-		String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE nome = ?";
+		String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE nome LIKE ?";
 
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectNameSQL);
-			preparedStatement.setString(1, name);
+			preparedStatement.setString(1, name + "%");
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -231,7 +231,49 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		return beanz;
 	}
 
+	@Override
+	public synchronized ArrayList<ProductBean> doRetrieveAvailable() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
+		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE disponibile = TRUE";
+		connection = ds.getConnection();
+		try {
+		
+		
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				String tp = rs.getString("tipo");
+				if(tp.equals("carta")) bean.setQuantity(rs.getInt("quantità"));
+				
+				bean.setCode(rs.getInt("ID_prodotto"));
+				bean.setType(tp);
+				bean.setName(rs.getString("nome"));
+				bean.setPrice(rs.getFloat("prezzo"));
+				bean.setFoto(rs.getBlob("foto"));
+				bean.setAvailable(rs.getBoolean("disponibile"));
+				
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
 
 	@Override
 	public synchronized ArrayList<ProductBean> doRetrieveAll(String order) throws SQLException {

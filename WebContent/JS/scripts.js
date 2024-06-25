@@ -92,6 +92,19 @@
       }
     }
 	
+	
+   	function countElements(cls) {
+		/*const parentElement = document.getElementById('header-block');*/
+		const numberOfElements = parentElement.getElementsByClassName(cls).length;
+        console.log(numberOfElements);
+        }
+	
+	function toggleResize(){
+		  const styleSheet = document.getElementById('light.css');
+            styleSheet.innerHTML =" @media screen and (max-width: 950px) {.cartContainer {padding: 15px;}#container {padding: 15px 40px;}#input {width: 11.5em;}}"
+
+	}
+	
 	function switchSuite(){
 		switchLogo();
 		checkWindowWidth();
@@ -195,4 +208,5 @@
   </script> -->*/
   
   
+   
   

@@ -14,15 +14,8 @@ public class Logout extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		
-		Boolean isAdmin = (Boolean) request.getSession().getAttribute("isAdmin");
-		if (isAdmin == null){	
-		    response.sendRedirect(request.getContextPath() + "/login.jsp"); 
-		    return;
-		}
-		
 		request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath() + "/login.jsp");	
+		response.sendRedirect(request.getContextPath() + "/Login");	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 

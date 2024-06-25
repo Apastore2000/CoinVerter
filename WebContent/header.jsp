@@ -6,7 +6,9 @@
 	String name = request.getParameter("PageTitle");
 	String ref = new String();
 	String link = new String();
-	User user = (User)session.getAttribute("user");
+	//User user = (User)session.getAttribute("user");
+	User user = new User();
+	//user.setAdmin(true);
 	ProductBean pr = new ProductBean();
 	cart.addProduct(pr);
 	
@@ -58,33 +60,27 @@
             </div>
          </div>
          
-          <div class="cartContainer">
-           <div class="position">
-             <img class="icon" src="img/icon/iconUser.png" alt="">
-             <span class="caption">ADMIN</span>
-           </div>
-         </div>
-            
+          
         <%}else if(user != null && !user.isAdmin()){ %>
-         <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
+         <div id="loginButton" class="cartContainer">
             <div class="position">
-              <img class="icon" src="img/icon/iconUserLog.png" alt="">
+              <a href="Logout"><img class="icon" src="img/icon/iconUserLog.png" alt=""></a>
               <span class="caption">LOGOUT</span>
             </div>
          </div>
                
         <%}else if (user != null && user.isAdmin()){ %>
-         <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
+         <div id="loginButton" class="cartContainer">
             <div class="position">
-              <img class="icon" src="img/icon/iconUserLog.png" alt="">
+              <a href="Logout"><img class="icon" src="img/icon/iconUserLog.png" alt=""></a>
               <span class="caption">LOGOUT</span>
             </div>
          </div>
          
          <div class="cartContainer">
            <div class="position">
-             <img class="icon" src="img/icon/iconUser.png" alt="">
-             <span class="caption">ADMIN</span>
+             <img class="icon" src="img/icon/iconSettings.png" alt="">
+             <span class="caption">GESTIONE</span>
            </div>
          </div>
         <%} %>

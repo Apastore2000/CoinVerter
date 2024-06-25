@@ -13,24 +13,28 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import prodotti.ProductBean;
+import prodotti.ProductDaoDataSource;
+
 
 public class UsersDaoDataSource implements IUsersDAO<User> {
 
 	private static DataSource ds;
+	private static final String TABLE_NAME = "utente";
 
 	static {
 		try {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 
-			ds = (DataSource) envCtx.lookup("jdbc/CoinVerter");
+			ds = (DataSource) envCtx.lookup("jdbc/coinverter");
 
 		} catch (NamingException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
 	}
 
-	private static final String TABLE_NAME = "utente";
+	
 
 	@Override
 	public synchronized void doSave(User utente) throws SQLException {
@@ -97,7 +101,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<User> products = new LinkedList<User>();
+		Collection<User> users = new LinkedList<User>();
 
 		String selectSQL = "SELECT * FROM " + UsersDaoDataSource.TABLE_NAME;
 
@@ -119,7 +123,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 				bean.setEmail(rs.getString("email"));
 				bean.setPwd(rs.getString("pwd"));
 				bean.setAdmin(rs.getBoolean("isAdmin"));
-				products.add(bean);
+				users.add(bean);
 			}
 
 		} finally {
@@ -131,7 +135,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 					connection.close();
 			}
 		}
-		return products;
+		return users;
 	}
 
 	
@@ -173,7 +177,99 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 	}
 
 
+	public User doRetrieveByEmail(String mail) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		User bean = new User();
+
+		String selectSQL = "SELECT * FROM " + UsersDaoDataSource.TABLE_NAME + " WHERE email = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, mail);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setNome(rs.getString("nome"));
+				bean.setCognome(rs.getString("cognome"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPwd(rs.getString("pwd"));
+				bean.setAdmin(rs.getBoolean("isAdmin"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return bean;
 	
+	}
+	
+	
+	
+	
+	@Override
+	public void doUpdate(User user) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		User oldUser = new User();
+
+		String updateSQL = "UPDATE " + UsersDaoDataSource.TABLE_NAME + 
+		" SET email = ?,pwd = ?, nome = ?, cognome = ?, isAdmin = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setString(1, user.getEmail());
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				oldUser.setEmail("email");
+				oldUser.setNome(rs.getString("nome"));
+				oldUser.setCognome(rs.getString("cognome"));
+				oldUser.setPwd("pwd");
+				oldUser.setAdmin(false);
+				
+				
+			preparedStatement = connection.prepareStatement(updateSQL);
+			if(user.getNome()== null) preparedStatement.setString(1, oldUser.getNome());
+			else preparedStatement.setString(1, user.getNome());
+			
+			if(user.getCognome()== null) preparedStatement.setString(1, oldUser.getCognome());
+			else preparedStatement.setString(1, user.getCognome());
+			
+			if(user.getPwd() == oldUser.getPwd()) preparedStatement.setString(1, oldUser.getPwd());
+			else preparedStatement.setString(1, user.getPwd());
+			
+			if(user.isAdmin() == oldUser.isAdmin()) preparedStatement.setBoolean(1, oldUser.isAdmin());
+			else preparedStatement.setBoolean(1, user.isAdmin());
+			
+			
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	
+	}
+		
+
 	
 	
 

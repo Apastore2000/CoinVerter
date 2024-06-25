@@ -15,7 +15,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
-
+  <%if(prodotti.size()<=3 || prodotti.size()<=5){%>
+  <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/shop.css">
+  <%} %>
   <title>CoinVerter</title>
 </head>
 
@@ -39,45 +41,12 @@
 
   <!--Header-->
 
-  <script>
-    function switchLogo() {
-      var logo = document.getElementById('logo');
-      var logoSrc = window.innerWidth <= 850 ? 'img/logo.png' : 'img/logoName.png';
-      logo.src = logoSrc;
-    }
-    window.addEventListener('load', switchLogo);
-    window.addEventListener('resize', switchLogo);
-  </script>
 	
 	<jsp:include page='header.jsp'>
   		<jsp:param name = "PageTitle" value="shop"/>
   </jsp:include>
   
   
-
-  <div class="searchbar" hidden>
-    <div class="searchbarOverlay"></div>
-    <div class="searchbarContent">
-      <div class="searchbarBody">
-        <input type="text" id="inputbar" name="searchBox" placeholder="Search...">
-        <button class="sBtn" id="close"><img class="icon" src="img/icon/iconX.png" alt=""></button>
-      </div>
-      <button class="sBtn"><img class="icon" src="img/icon/iconSearch.png" alt=""></button>
-    </div>
-  </div>
-
-  <div class="sidebar" hidden>
-    <div class="sidebarOverlay"></div>
-    <div class="sidebarContent">
-      <div class="sidebarHeader">
-        <h4>WALLET</h4>
-        <img class="icon" src="img/icon/iconX.png" alt="">
-      </div>
-      <div class="sidebarBody">
-
-      </div>
-    </div>
-  </div>
 
   
 
@@ -113,15 +82,19 @@
               <a class="subItem" href="">Gift Card</a>
             </div>
           </div>
+           <!--<div class="megaPezza"></div>-->
         </div>
       </div>
-    </section> 
+    </section>
     
     
-    
+    <div class="bgShop">
       <section class="shop">
       	
           <div class="headerShopContainer">
+            <div class="menuBtn">
+          		<img src="img/icon/iconUser.png" alt="">
+        	</div>
             <h2>
               Our <span>products</span>
             </h2>
@@ -156,75 +129,7 @@
               </div>
             </div>
             <%}%>
-              <%-- <div class="shopItem">
-                <div class="itemBox">
-                  <div class="optionContainer">
-                    <div class="options">
-                      <a href="" class="option">
-                        Add To Cart
-                      </a>
-                    </div>
-                  </div>
-                  <div class="imgShopContainer">
-                    <img src="img/icon/iconUser.png" alt="">
-                  </div>
-                  <div class="detailBox">
-                    <h5>
-                      <%prodotti.get(0).getName(); %>
-                    </h5>
-                    <h6>
-                      <%prodotti.get(0).getPrice(); %>
-                    </h6>
-                  </div>
-                </div>
-              </div>
-			--%>
-            <div class="shopItem">
-              <div class="itemBox">
-                <div class="optionContainer">
-                  <div class="options">
-                    <a href="" class="option">
-                      Add To Cart
-                    </a>
-                  </div>
-                </div>
-                <div class="imgShopContainer">
-                  <img src="img/icon/iconUser.png" alt="">
-                </div>
-                <div class="detailBox">
-                  <h5>
-                    Women's Dress
-                  </h5>
-                  <h6>
-                    $68
-                  </h6>
-                </div>
-              </div>
-            </div>
-
-			<%--
-              <div class="shopItem">
-                <div class="itemBox">
-                  <div class="optionContainer">
-                    <div class="options">
-                      <a href="" class="option">
-                        Add To Cart
-                      </a>
-                    </div>
-                  </div>
-                  <div class="imgShopContainer">
-                    <img src="img/icon/iconUser.png" alt="">
-                  </div>
-                  <div class="detailBox">
-                    <h5>
-                      Women's Dress
-                    </h5>
-                    <h6>
-                      $68
-                    </h6>
-                  </div>
-                </div>
-              </div> --%>
+           
 
           </div>
         
@@ -241,34 +146,32 @@
     });
   </script>
 
-  <footer>
-    <div class="footerContainer">
-      <div class="footerFlexbox">
-        <img id="footerLogo" src="img/logoName.png" alt="">
-      </div>
-      <div class="footerFlexbox">
-        <div class="menu">
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footerFlexbox">
-        <div class="social">
-          <a href="" target="_blank"><img src="img/social/insta.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/x.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/youtube.png" alt=""></a>
-          <a href="" target="_blank"><img src="img/social/linkedin.png" alt=""></a>
-        </div>
-      </div>
-    </div>
-    <div class="toTop">
-      <a href="index.jsp" class="topBtn">
-        <img src="img/up.png" alt="">
-      </a>
-    </div>
-  </footer>
+  <jsp:include page='footer.html'></jsp:include>
+  
+  <!--Jquery-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // expand/collapse menuBar
+      $('.menuBtn').click(function () {
+        $('.menuBar').addClass('active');
+        $('.menuBtn').css("visibility", "hidden");
+      });
+
+      //close
+      $('#closeBtn').click(function () {
+        $('.menuBar').removeClass('active');
+        $('.menuBtn').css("visibility", "visible");
+      })
+
+      //subMenu
+      $('.subMenuBtn').click(function () {
+        $(this).next('.subMenu').slideToggle();
+        $(this).find('.dropdown').toggleClass('rotate');
+      });
+    });
+  </script>
+  
 </body>
 
 </html>

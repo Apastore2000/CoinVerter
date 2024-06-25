@@ -15,6 +15,8 @@ public interface IProductDAO<T> {
 	
 	public ArrayList<T> doRetrieveByName(String name) throws SQLException;
 	
+	public ArrayList<T> doRetrieveAvailable() throws SQLException;
+	
 	public ArrayList<T> doRetrieveAll(String order) throws SQLException;
 	
 }
