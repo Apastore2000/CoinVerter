@@ -20,35 +20,48 @@ import javax.servlet.http.HttpSession;
  * 
  * */
 
-
 @WebServlet("/Shop")
 public class ShopServlet extends HttpServlet {
-		private static final long serialVersionUID = 1L;
-	
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			HttpSession sessione = request.getSession();
-			String filtro = (String) request.getParameter("filter");
-			ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
-			ProductDaoDataSource source = new ProductDaoDataSource();
-			
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession sessione = request.getSession();
+		String filtro = (String) request.getParameter("filter");
+		if(filtro== null)filtro = "";
+		String azione = (String) request.getParameter("action");
+		if(azione== null)azione = "ricerca";
+		ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
+		ProductDaoDataSource source = new ProductDaoDataSource();
+
+		if (azione.equals("ricerca")) {
+
 			try {
-				if(filtro != null && filtro.length() != 0) {
+				if (filtro.length() != 0) {
 					prodotti = source.doRetrieveByName(filtro);
-				}else {
+				} else {
 					prodotti = source.doRetrieveAvailable();
 				}
 			} catch (SQLException e) {
-			e.printStackTrace();
-			}finally {
-			
-			sessione.setAttribute("products", prodotti);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop.jsp");
-	        dispatcher.forward(request, response);
+				e.printStackTrace();
+			}
+		} else if (azione.equals("categoria")) {
+			try {
+
+				if (filtro != null && filtro.length() != 0) prodotti = source.doRetrieveByCategory(filtro);
+					
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
-		
-		
-		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			doPost(request,response);
-		}
+
+		sessione.setAttribute("products", prodotti);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/shop.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 }

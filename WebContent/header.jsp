@@ -23,11 +23,15 @@
 		link = "SHOP";
 		break;
 	}
-	
-%>    
+	%>
+	    
 <!DOCTYPE html>
 <html>
 <head>
+<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/userHeader.css">
+	<%if(user.isAdmin()){%>
+		<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/adminHeader.css">
+	<%}%>
 <script type="text/javascript" src="JS/scripts.js"></script>
 <meta charset="UTF-8">
 	

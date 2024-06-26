@@ -25,7 +25,7 @@ body {
 }
 
 /* header ----------------------------------------------------------------------------------------------*/
-
+ 
 #container {
     background-color: #f5f5f5;
     margin: 0;  
@@ -101,13 +101,13 @@ body {
     border-radius: 20px;
     border: 0;
     background-color: #ececec;
-    /*
+    
     animation-duration: 0.3s;
     animation-fill-mode: both;
-    */
+   
 }
 
-/*
+
 #searchBtn.show {
     display: block;
 }
@@ -120,7 +120,7 @@ body {
 #searchBtn.hidden {
     animation-name: disappear;
 }
-*/
+
 
 #searchIconBtn {
     margin: 4px;
@@ -130,7 +130,7 @@ body {
     cursor: pointer;
 }
 
-/*
+
 @keyframes appear {
     0% {
         opacity: 0;
@@ -150,24 +150,9 @@ body {
         opacity: 0;
     }
 }
-*/
 
-#input {
-    width: 35em;
-    height: 3em;
-    padding: 0px 15px;
-    background-color: transparent;
-    border: none;
-    border-radius: 20px;
-}
 
-#input::placeholder {
-    font-weight: bold;
-}
 
-#input:focus {
-    outline: none;
-}
 
 #toggle {
     display: flex;
@@ -178,7 +163,7 @@ body {
     color: rgb(29, 29, 29)
 }
 
-/* badge-Icon */
+/*badge-Icon*/
 
 .cartContainer {
     margin: auto;
@@ -240,7 +225,7 @@ body {
     transform: scale(1);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.75);
 }
-
+/*
 
 @media screen and (max-width: 1300px) {
     #input {
@@ -259,7 +244,8 @@ body {
         width: 15em;
     }
 }
-
+*/
+ 
 
 /*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 
@@ -692,7 +678,7 @@ footer {
     padding: 0;
     height: auto;
     background-color: #f5f5f5;
-    z-index: 2;
+    z-index: 4;
     width: 100vw;
 }
 
@@ -809,7 +795,7 @@ footer a:hover {
 
 .megaPezza{
 	height: 500px;
-	background-color: red;
+	/*background-color: red;*/
 }
 
 .menuBar {
@@ -817,7 +803,7 @@ footer a:hover {
     width: 250px;
     height: 100%;
     position: fixed;
-    z-index: 4;
+    z-index: 3;
     top: 110px;
     bottom: 400px ;
     overflow: auto;
@@ -1060,19 +1046,15 @@ footer a:hover {
     color: #444B54;
     font-weight: 600;
 }
-/*
-@media screen and (max-width: 1150px) {
-    .bgShop{
-        height: 100%;
-    }
-}
-*/
+
 @media screen and (max-width: 900px) {
-    .shopItem {
+	.shopItem {
         margin-left: 25px;
         margin-right: 25px;
     }
 }
+
+
 
 @media screen and (max-width: 650px) {
     #closeBtn {
@@ -1083,15 +1065,26 @@ footer a:hover {
         display: block;
     }
     
-    .shop {
-    	margin-left: 0;
-    }
+    
     
     .menuBar {
         width: 100%;
         left: -100%;
     }
+    
+    
+    .shop {
+    	margin-left: 0px;
+    }
+}    
+/*
+@media screen and (max-width: 1150px) {
+    .bgShop{
+        height: 100%;
+    }
 }
+*/
+
 
 
 /*

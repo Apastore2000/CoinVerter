@@ -15,9 +15,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
-  <%if(prodotti.size()<=3 || prodotti.size()<=5){%>
-  <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/shop.css">
+  <%if(prodotti.size()<=3){%>
+  	<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/shopLow.css">
+  <%}else{%>
+  	<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/shopHigh.css">
   <%} %>
+  
   <title>CoinVerter</title>
 </head>
 
@@ -52,7 +55,7 @@
 
   
   <main class="bgPage">
-  <div class="bgshop">
+ 
    	 <section>
       <div class="menuBar">
         <header>
@@ -63,17 +66,17 @@
         <div class="category">
           <div class="categoryItem">
             <a class="selectionMenu">
-              <img class="categoryIcon" src="img/icon/iconCurrency.png" alt="">Valute
+              <img class="categoryIcon" src="img/icon/iconCurrency.png" alt="" onclick="RicercaCat(valuta)">Valute
             </a>
           </div>
           <div class="categoryItem">
             <a class="selectionMenu">
-              <img class="categoryIcon" src="img/icon/iconCrypto.png" alt="">Cryptovalute
+              <img class="categoryIcon" src="img/icon/iconCrypto.png" alt="" onclick="RicercaCat(crypto)">Cryptovalute
             </a>
           </div>
           <div class="categoryItem">
             <a class="subMenuBtn">
-              <img class="categoryIcon" src="img/icon/iconCard.png" alt="">Card
+              <img class="categoryIcon" src="img/icon/iconCard.png" alt=""onclick="RicercaCat(carta)">Card
               <img class="dropdown" src="img/icon/right.png" alt="">
             </a>
             <div class="subMenu">
@@ -82,7 +85,7 @@
               <a class="subItem" href="">Gift Card</a>
             </div>
           </div>
-           <!--<div class="megaPezza"></div>-->
+           <div class="megaPezza"></div>
         </div>
       </div>
     </section>
