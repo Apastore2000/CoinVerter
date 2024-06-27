@@ -20,12 +20,12 @@ public class Login extends HttpServlet {
 			UsersDaoDataSource d = new UsersDaoDataSource();
 			User u = new User();
 		
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
+			String email = request.getParameter("email");
+			String password = request.getParameter("pwd");
 			List<String> errors = new ArrayList<>();
         	RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("login.jsp");
 
-			if(username == null || username.trim().isEmpty()) {
+			if(email == null || email.trim().isEmpty()) {
 				errors.add("Il campo username non può essere vuoto!");
 			}
             if(password == null || password.trim().isEmpty()) {
@@ -33,29 +33,41 @@ public class Login extends HttpServlet {
 			}
             if (!errors.isEmpty()) {
             	request.setAttribute("errors", errors);
+            	for(String error : errors)System.out.println(error);
             	dispatcherToLoginPage.forward(request, response);
             	return; // note the return statement here!!!
             }
-            username = username.trim();
+            else{
+            email = email.trim();
+        
             password = Encrypter.hashPassword(password.trim()); 
+            System.out.println(password);
            
             try {
-				u = d.doRetrieveByName(username);
+				u = d.doRetrieveByEmail(email);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
-			
+           			
             //check valid password
-            if(u.getPwd().equals(password)) {
+            System.out.println("--------------------");
+            System.out.println(u.getNome());
+            System.out.println(u.getCognome());
+            System.out.println(u.getPwd());
+            System.out.println(u.getEmail());
+            System.out.println(u.isAdmin());
+            if(u != null && u.getPwd().equals(password)) {
             	request.getSession().setAttribute("user", u);
+            	RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            	dispatcher.forward(request, response);
 			} else {
-				errors.add("Username o password non validi!");
+				errors.add("email o password non validi!");
 				request.setAttribute("errors", errors);
 				dispatcherToLoginPage.forward(request, response);
 			}
 	}
+   }
 	
 	private static final long serialVersionUID = 1L;
 

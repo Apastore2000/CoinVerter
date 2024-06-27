@@ -191,15 +191,16 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 			preparedStatement.setString(1, mail);
 
 			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
+			if(!rs.isBeforeFirst()) bean = null;
+			else {
+				while (rs.next()) {
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPwd(rs.getString("pwd"));
 				bean.setAdmin(rs.getBoolean("isAdmin"));
 			}
-
+			}			
 		} finally {
 			try {
 				if (preparedStatement != null)

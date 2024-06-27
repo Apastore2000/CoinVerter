@@ -3,15 +3,30 @@ package prodotti;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import prodotti.ProductBean;
+//import prodotti.ProductBean;
+import utenti.User;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ManageProductServlet {
+
+@WebServlet("/Gestione")
+public class ManageProductServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		User u =(User) request.getSession().getAttribute("user");
+		if(u == null || !u.isAdmin()) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
 		String attività = request.getParameter("activity");
 		ProductBean prodotto = new ProductBean();
 		int id =Integer.parseInt(request.getParameter("id"));
@@ -38,7 +53,7 @@ public class ManageProductServlet {
 						
 						//introdurre cambio foto
 						
-						if(prodotto.tipo == ProductType.carta && quantità > 0) prodotto.setQuantity(quantità);
+						if((prodotto.tipo == ProductType.ricarica || prodotto.tipo == ProductType.moneta) && quantità > 0) prodotto.setQuantity(quantità);
 						else prodotto.setQuantity(-1);
 						
 						source.doUpdate(prodotto);
@@ -64,7 +79,7 @@ public class ManageProductServlet {
 						
 						//introdurre cambio foto
 						
-						if(prodotto.tipo == ProductType.carta && quantità > 0) prodotto.setQuantity(quantità);
+						if((prodotto.tipo == ProductType.ricarica || prodotto.tipo == ProductType.moneta) && quantità > 0) prodotto.setQuantity(quantità);
 						else prodotto.setQuantity(-1);
 						
 						source.doSave(prodotto);
@@ -86,4 +101,9 @@ public class ManageProductServlet {
 			}//switch
 		}
 	}
-}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+	
+}	

@@ -50,8 +50,8 @@
 <body>
     <div class="login-form">
         <h2>Accedi al tuo account personale</h2>
-        <form action="Login" method="post">
-            <input type="text" name="email" placeholder="Email" required="required">
+        <form action="Login" method="POST">
+            <input type="text" name="email" placeholder="email" required="required">
             <input type="password" name="pwd" placeholder="Password" required="required">
             <button type="submit">Accedi</button>
         </form>

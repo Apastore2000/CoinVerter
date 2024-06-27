@@ -8,7 +8,7 @@
 	String link = new String();
 	//User user = (User)session.getAttribute("user");
 	User user = new User();
-	//user.setAdmin(true);
+	user.setAdmin(true);
 	ProductBean pr = new ProductBean();
 	cart.addProduct(pr);
 	
@@ -29,7 +29,7 @@
 <html>
 <head>
 <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/userHeader.css">
-	<%if(user.isAdmin()){%>
+	<%if(user!= null && user.isAdmin()){%>
 		<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/adminHeader.css">
 	<%}%>
 <script type="text/javascript" src="JS/scripts.js"></script>
@@ -59,7 +59,7 @@
         <%if(user == null){ %>
           <div id="loginButton" class="cartContainer" onclick="checkLogin(user)">
             <div class="position">
-              <img class="icon" src="img/icon/iconUser.png" alt="">
+              <a href="login.jsp"><img class="icon" src="img/icon/iconUser.png" alt=""></a>
               <span class="caption">LOGIN</span>
             </div>
          </div>
@@ -83,7 +83,7 @@
          
          <div class="cartContainer">
            <div class="position">
-             <img class="icon" src="img/icon/iconSettings.png" alt="">
+             <a href="admin/gindex.html"><img class="icon" src="img/icon/iconSettings.png" alt=""></a>
              <span class="caption">GESTIONE</span>
            </div>
          </div>

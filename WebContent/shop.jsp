@@ -76,13 +76,13 @@
           </div>
           <div class="categoryItem">
             <a class="subMenuBtn">
-              <img class="categoryIcon" src="img/icon/iconCard.png" alt=""onclick="RicercaCat(carta)">Card
+              <img class="categoryIcon" src="img/icon/iconCard.png" alt="">Card
               <img class="dropdown" src="img/icon/right.png" alt="">
             </a>
             <div class="subMenu">
               <a class="subItem" href="">Carte</a>
-              <a class="subItem" href="">Ricariche</a>
-              <a class="subItem" href="">Gift Card</a>
+              <a class="subItem" href="" onclick="RicercaCat(ricarica)">Ricariche</a>
+              <a class="subItem" href="" onclick="RicercaCat(moneta)">Gift Card</a>
             </div>
           </div>
            <div class="megaPezza"></div>

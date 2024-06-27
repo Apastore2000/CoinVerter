@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ManageAccountServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		User u =(User) request.getSession().getAttribute("user");
+		if(u == null || !u.isAdmin()) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
 		String attività = request.getParameter("activity");
 		User user = new User();
 		String email = request.getParameter("email");

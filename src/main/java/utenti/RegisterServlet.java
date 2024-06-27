@@ -25,14 +25,26 @@ public class RegisterServlet extends HttpServlet {
 			User u = new User();
 						
 		
-			String nome = request.getParameter("nome");
-			String cognome = request.getParameter("cognome");
+			String nome = request.getParameter("name");
+			System.out.println(nome);
+			String cognome = request.getParameter("surname");
+			System.out.println(cognome);
 			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String admin = request.getParameter("admin");
+			System.out.println(email);
+			String password = request.getParameter("pwd");
+			System.out.println(password);
+			
 			
 			List<String> errors = new ArrayList<>();
         	RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("login.jsp");
+        	try {
+				u = d.doRetrieveByEmail(email);
+				if(u == null) u = new User();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
         	if(nome == null || nome.trim().isEmpty()) errors.add("Il campo nome non può essere vuoto!");
         	else u.setNome(nome);
         	
@@ -44,26 +56,29 @@ public class RegisterServlet extends HttpServlet {
             else u.setEmail(email);
             
             if(password == null || password.trim().isEmpty()) errors.add("Il campo password non può essere vuoto!");
-            else {
-            	
-            	u.setPwd(Encrypter.hashPassword(password));
-            }
-            
-            if(admin == "admin") u.setAdmin(true);
-            else u.setAdmin(false);
-
+            else u.setPwd(Encrypter.hashPassword(password));
             
             
-            if (!errors.isEmpty()) {
+            u.setAdmin(false);
+        	
+            System.out.println("--------------------");
+            System.out.println(u.getNome());
+            System.out.println(u.getCognome());
+            System.out.println(u.getPwd());
+            System.out.println(u.getEmail());
+            System.out.println(u.isAdmin());
+            
+            
+            if (errors.isEmpty()) {
             	try {
 					d.doSave(u);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            }
+            }else for(String error : errors)System.out.println(error);
             
-            response.sendRedirect("/Login");
+            response.sendRedirect("login.jsp");
             
 	}
 	
