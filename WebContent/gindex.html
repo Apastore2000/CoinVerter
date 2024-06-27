@@ -1,0 +1,137 @@
+<head>
+  <link rel="shortcut icon" type="image/gif" href="img/logo.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale = 1, width = device-width">
+  <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
+
+  <title>CoinVerter</title>
+</head>
+
+<body>
+  <header>
+    <div class="managementHeader">
+      <div class="sidepanelBtn">
+        <img id="btnIcon" src="img/icon/iconMenu.png" alt="">
+      </div>
+      <div id="animationHeader" class='console-container'>
+        <span id='text'></span>
+        <div class='console-underscore' id='console'>&#95;</div>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div id="sidepanel" class="menuBar">
+      <div class="extendBtn">
+        <a class="extend">
+          <img src="img/icon/right.png" alt="">
+        </a>
+      </div>
+      <div id="sideMenu" class="category">
+        <div id="sideItem" class="categoryItem">
+          <a href="gindex.html" class="sideSelection">
+            <img id="sideIcon" class="categoryIcon" src="img/icon/iconSettings.png" alt=""><span
+              class="spec">HOME</span>
+          </a>
+        </div>
+        <div id="sideItem" class="categoryItem">
+          <a href="product.html" class="sideSelection">
+            <img id="sideIcon" class="categoryIcon" src="img/icon/iconProduct.png" alt=""><span
+              class="spec">PRODUCTS</span>
+          </a>
+        </div>
+        <div id="sideItem" class="categoryItem">
+          <a href="accounts.html" class="sideSelection">
+            <img id="sideIcon" class="categoryIcon" src="img/icon/iconUserSettings.png" alt=""><span
+              class="spec">ACCOUNTS</span>
+          </a>
+        </div>
+        <div id="sideItem" class="categoryItem">
+          <a href="index.html" class="sideSelection">
+            <img id="sideIcon" class="categoryIcon" src="img/icon/iconBack.png" alt=""><span class="spec">BACK TO
+              SITE</span>
+          </a>
+        </div>
+      </div>
+  </section>
+  <main>
+    <div class='console-container'>
+      <span id='text'></span>
+      <div class='console-underscore' id='console'>&#95;</div>
+    </div>
+  </main>
+
+
+  <script>
+    let sidepanel = document.querySelector('#sidepanel');
+    let toggle = document.querySelector('.extendBtn');
+
+    toggle.addEventListener('click', () => {
+      sidepanel.classList.toggle('active');
+    });
+
+    let sideBtn = document.querySelector('.sidepanelBtn');
+    let btnIcon = document.querySelector('#btnIcon');
+
+    sideBtn.addEventListener('click', () => {
+      sidepanel.classList.toggle('open');
+      btnIcon.src = sidepanel.classList.contains('open') ? 'img/icon/iconX.png' : 'img/icon/iconMenu.png';
+    });
+  </script>
+
+
+  <script>
+    consoleText(['Hi, Admin.', 'Choose what you want to do'], 'text', ['tomato', 'rebeccapurple']);
+
+    function consoleText(words, id, colors) {
+      if (colors === undefined) colors = ['#fff'];
+      var visible = true;
+      var con = document.getElementById('console');
+      var letterCount = 1;
+      var x = 1;
+      var waiting = false;
+      var target = document.getElementById(id)
+      target.setAttribute('style', 'color:' + colors[0])
+
+      window.setInterval(function () {
+        if (letterCount === 0 && waiting === false) {
+          waiting = true;
+          target.innerHTML = words[0].substring(0, letterCount)
+
+          window.setTimeout(function () {
+            var usedColor = colors.shift();
+            colors.push(usedColor);
+            var usedWord = words.shift();
+            words.push(usedWord);
+            x = 1;
+            target.setAttribute('style', 'color:' + colors[0])
+            letterCount += x;
+            waiting = false;
+          }, 1000)
+
+        } else if (letterCount === words[0].length + 1 && waiting === false) {
+          waiting = true;
+          window.setTimeout(function () {
+            x = -1;
+            letterCount += x;
+            waiting = false;
+          }, 1000)
+
+        } else if (waiting === false) {
+          target.innerHTML = words[0].substring(0, letterCount)
+          letterCount += x;
+        }
+      }, 120)
+
+      window.setInterval(function () {
+        if (visible === true) {
+          con.className = 'console-underscore hidden'
+          visible = false;
+
+        } else {
+          con.className = 'console-underscore'
+          visible = true;
+        }
+      }, 400)
+    }
+  </script>
+</body>

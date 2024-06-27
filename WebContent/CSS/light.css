@@ -17,7 +17,9 @@ body {
     width: 0px;
 }
 
-*, *:after, *:before {
+*,
+*:after,
+*:before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -25,10 +27,10 @@ body {
 }
 
 /* header ----------------------------------------------------------------------------------------------*/
- 
+
 #container {
     background-color: #f5f5f5;
-    margin: 0;  
+    margin: 0;
     top: 0;
     text-align: center;
     width: fit-content;
@@ -101,22 +103,24 @@ body {
     border-radius: 20px;
     border: 0;
     background-color: #ececec;
-    
+
     animation-duration: 0.3s;
     animation-fill-mode: both;
-   
-}
 
+}
 
 #searchBtn.show {
     display: block;
 }
+
 #searchBtn.hidden {
     display: block;
 }
+
 #searchBtn.show {
     animation-name: appear;
 }
+
 #searchBtn.hidden {
     animation-name: disappear;
 }
@@ -129,7 +133,6 @@ body {
     vertical-align: middle;
     cursor: pointer;
 }
-
 
 @keyframes appear {
     0% {
@@ -150,9 +153,6 @@ body {
         opacity: 0;
     }
 }
-
-
-
 
 #toggle {
     display: flex;
@@ -225,33 +225,12 @@ body {
     transform: scale(1);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.75);
 }
-/*
-
-@media screen and (max-width: 1300px) {
-    #input {
-        width: 30em;
-    }
-}
-
-@media screen and (max-width: 1212px) {
-    #input {
-        width: 25em;
-    }
-}
-
-@media screen and (max-width: 1090px) {
-    #input {
-        width: 15em;
-    }
-}
-*/
- 
-
-/*000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 
 
 @media screen and (max-width: 850px) {
-    #searchIcon, #input {
+
+    #searchIcon,
+    #input {
         display: none;
     }
 
@@ -268,7 +247,7 @@ body {
     .cartContainer {
         padding: 15px;
     }
-    
+
     #container {
         padding: 15px 40px;
     }
@@ -310,15 +289,14 @@ body {
 @media screen and (max-width: 400px) {
     #container {
         padding: 20px 5%;
-    }  
-}
-
-@media screen and (max-width: 351px) {
-    #logoBox{
-        display: none;
     }
 }
 
+@media screen and (max-width: 351px) {
+    #logoBox {
+        display: none;
+    }
+}
 
 /* sidebar ---------------------------------------------------------------------------------------------*/
 
@@ -790,12 +768,12 @@ footer a:hover {
     padding: auto 5%;
     position: relative;
     background-color: transparent;
-   /* height: 100%;*/
+    /* height: 100%;*/
 }
 
-.megaPezza{
-	height: 500px;
-	/*background-color: red;*/
+.megaPezza {
+    height: 500px;
+    /*background-color: red;*/
 }
 
 .menuBar {
@@ -805,7 +783,7 @@ footer a:hover {
     position: fixed;
     z-index: 3;
     top: 110px;
-    bottom: 400px ;
+    bottom: 400px;
     overflow: auto;
     transition: 0.3s;
     transition-property: left;
@@ -853,14 +831,12 @@ footer a:hover {
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
-    
-    
 }
 
 .category .categoryItem {
     position: relative;
     cursor: pointer;
-    
+
 }
 
 .category .subMenuBtn:hover {
@@ -881,7 +857,6 @@ footer a:hover {
     display: block;
     padding: 5px 30px;
     line-height: 60px;
-   
 }
 
 .categoryItem .categoryIcon {
@@ -1047,14 +1022,13 @@ footer a:hover {
     font-weight: 600;
 }
 
+
 @media screen and (max-width: 900px) {
-	.shopItem {
+    .shopItem {
         margin-left: 25px;
         margin-right: 25px;
     }
 }
-
-
 
 @media screen and (max-width: 650px) {
     #closeBtn {
@@ -1064,19 +1038,17 @@ footer a:hover {
     .menuBtn {
         display: block;
     }
-    
-    
-    
+
     .menuBar {
         width: 100%;
         left: -100%;
     }
-    
-    
+
     .shop {
-    	margin-left: 0px;
+        margin-left: 0px;
     }
-}    
+}
+
 /*
 @media screen and (max-width: 1150px) {
     .bgShop{
@@ -1526,6 +1498,7 @@ footer a:hover {
     border-radius: 20px;
 }
 
+
 @media (min-width: 992px) {
     .itemContainer {
         flex: 0 0 50%;
@@ -1551,5 +1524,194 @@ footer a:hover {
     .CheckOutContainer {
         flex: 0 0 100%;
         max-width: 100%;
+    }
+}
+
+/* Admin Page ------------------------------------------------------------------------------------------*/
+
+.managementHeader {
+    background-color: #f5f5f5;
+    margin: 0;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    z-index: 2;
+    position: sticky;
+    box-shadow: 0 1px 2px 0 rgba(79, 83, 87, 0.302), 0 2px 6px 2px rgba(79, 83, 87, 0.149);
+}
+
+/* text */
+
+.hidden {
+    opacity: 0;
+}
+
+.console-container {
+    font-family: 'Lato' sans-serif;
+    font-size: 4em;
+    text-align: center;
+    height: 200px;
+    width: 600px;
+    display: block;
+    position: absolute;
+    color: black;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#animationHeader {
+    font-size: 2em;
+    height: 30px;
+    padding-left: 40px;
+    width: 100%;
+}
+
+.console-underscore {
+    display: inline-block;
+    position: relative;
+    top: -0.14em;
+    left: 10px;
+}
+
+/* sidepanel */
+
+.sidepanelBtn {
+    position: absolute;
+    cursor: pointer;
+    padding: 0px;
+    margin: 17px;
+    border-radius: 50%;
+    z-index: 5;
+    display: none;
+}
+
+.sidepanelBtn:hover {
+    background-color: #ececec;
+}
+
+#btnIcon{
+    height: 25px;
+    width: 25px;
+}
+
+#sidepanel {
+    width: 60px;
+    top: 60px;
+    bottom: 0;
+    text-align: left;
+    transition: 0.2s;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    transition: 0.3s;
+    transition-property: left;
+    overflow: visible;
+    background-color: #f5f5f5;
+    transition: all 0.2s
+}
+
+#sideMenu {
+    overflow-y: hidden;
+    margin-top: 50px
+}
+
+#sideItem a {
+    color: #444B54;
+    text-decoration: none;
+    display: block;
+    padding: 20px 0;
+    padding-left: 15px;
+    line-height: 0px;
+}
+
+#sideIcon {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+}
+
+.spec {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.extendBtn .extend {
+    position: absolute;    
+    top: 10px;
+    right: -13px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #FFF350;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.extendBtn .extend:hover {
+    cursor: pointer;
+    background: #ffff6a;
+}
+
+.extendBtn a {
+    position: relative;
+    display: block;
+    z-index: 5;
+}
+
+#sidepanel.open {
+    left: 0;
+}
+
+#sidepanel.active {
+    width: 200px;
+}
+
+#sidepanel.active .spec {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.8s  
+}
+
+#sidepanel.active .extendBtn {
+    transform: translate(0px);
+}
+
+#sidepanel.active .extendBtn .extend {
+    transform: rotate(180deg);
+}
+
+.sideSelection:hover {
+    border-left: solid 5px;
+    border-color: #FFF350;
+    background-color: white;
+}
+
+
+@media screen and (max-width: 650px) {
+    .console-container {
+        width: 80%;
+        /*margin-left: 80px;*/
+    }
+    
+    .sidepanelBtn {
+        display: block;
+    }
+
+    .extendBtn {
+        display: none;
+    }
+
+    #animationHeader {
+        font-size: 1.5em;
     }
 }
