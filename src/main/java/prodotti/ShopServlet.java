@@ -12,13 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/*
- * form onSubmit="Ricerca"
- * input type text
- * submit button
- * 
- * 
- * */
 
 @WebServlet("/Shop")
 public class ShopServlet extends HttpServlet {
@@ -30,6 +23,7 @@ public class ShopServlet extends HttpServlet {
 		String filtro = (String) request.getParameter("filter");
 		if(filtro== null)filtro = "";
 		String azione = (String) request.getParameter("action");
+		
 		if(azione== null)azione = "ricerca";
 		ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
 		ProductDaoDataSource source = new ProductDaoDataSource();

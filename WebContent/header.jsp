@@ -2,15 +2,20 @@
     pageEncoding="UTF-8" import="utenti.User,coin.Carrello,prodotti.ProductBean"%>
  
 <%
-	Carrello cart = new Carrello();
 	String name = request.getParameter("PageTitle");
 	String ref = new String();
 	String link = new String();
-	//User user = (User)session.getAttribute("user");
-	User user = new User();
-	user.setAdmin(true);
-	ProductBean pr = new ProductBean();
-	cart.addProduct(pr);
+	User user = (User)session.getAttribute("user");
+	//User user = new User();
+	//user.setAdmin(true);
+	
+	
+	Carrello cart = (Carrello)request.getSession().getAttribute("cart");
+	if(cart == null){
+		cart = new Carrello();
+		request.getSession().setAttribute("cart",cart); 		
+	}
+	
 	
 	switch(name){
 	case "shop":
@@ -83,7 +88,7 @@
          
          <div class="cartContainer">
            <div class="position">
-             <a href="admin/gindex.html"><img class="icon" src="img/icon/iconSettings.png" alt=""></a>
+             <a href="admin/gindex.jsp"><img class="icon" src="img/icon/iconSettings.png" alt=""></a>
              <span class="caption">GESTIONE</span>
            </div>
          </div>
@@ -91,18 +96,19 @@
           
           <div class="cartContainer">
             <div class="position">
-              <div class="badge yellow"><%= cart.getCount() %>  </div>
+              <div class="badge yellow" id="contatoreCarrello"><%=cart.getCount()%></div>
               <a href="cart.jsp"><img class="icon" src="img/icon/iconCart.png" alt=""></a>
               <span class="caption">CART</span>
             </div>
           </div>
-          
+          <%if(user != null){ %>
           <div class="cartContainer" onClick="openSidebar(this.id)" id="isOpenSidebar">
             <div class="position">
               <img class="icon" src="img/icon/iconWallet.png" alt="">
               <span class="caption">WALLET</span>
             </div>
           </div>
+          <%} %>
           
         </div>
       </div>

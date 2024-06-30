@@ -53,7 +53,7 @@ public class ManageProductServlet extends HttpServlet {
 						
 						//introdurre cambio foto
 						
-						if((prodotto.tipo == ProductType.ricarica || prodotto.tipo == ProductType.moneta) && quantità > 0) prodotto.setQuantity(quantità);
+						if((prodotto.getType() == "ricarica") && quantità > 0) prodotto.setQuantity(quantità);
 						else prodotto.setQuantity(-1);
 						
 						source.doUpdate(prodotto);
@@ -79,7 +79,7 @@ public class ManageProductServlet extends HttpServlet {
 						
 						//introdurre cambio foto
 						
-						if((prodotto.tipo == ProductType.ricarica || prodotto.tipo == ProductType.moneta) && quantità > 0) prodotto.setQuantity(quantità);
+						if((prodotto.getType() == "ricarica" && quantità > 0)) prodotto.setQuantity(quantità);
 						else prodotto.setQuantity(-1);
 						
 						source.doSave(prodotto);

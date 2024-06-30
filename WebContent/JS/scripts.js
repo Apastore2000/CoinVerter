@@ -18,14 +18,14 @@
 
 }
 
- function RicercaCat(tipo){
-    	let filtro = tipo;
-    	
+ /*function RicercaCat(tipo){
+    	//let filtro = tipo;
+    	console.log(tipo)
     	var currentURL = window.location.href;
-    	window.location.href =  currentURL.substring(0, currentURL.lastIndexOf('/') + 1) + 'Shop?filter=' + filtro + '&action=categoria' 
+    	window.location.href =  currentURL.substring(0, currentURL.lastIndexOf('/') + 1) + 'Shop?filter=' + tipo + '&action=categoria' 
 
 }
-
+*/
 
 	function openSidebar(id){
 		const sidebar = document.getElementById("sideb");
@@ -105,7 +105,7 @@
    	function countElements(cls) {
 		const parentElement = document.getElementById('header-block');
 		const numberOfElements = parentElement.getElementsByClassName(cls).length;
-        console.log(numberOfElements);
+		return numberOfElements;
         }
 	
 	function toggleResize(){
@@ -196,4 +196,34 @@
         }
       }, 400)
     }
+
+  
+  function modificaCarrello(c,azione){
+	 
+	
+	  var xhr = new XMLHttpRequest();
+		
+		
+		var finalString ="CartServlet?id="+ c + "&action=" + azione
+		
+		xhr.open("GET", finalString ,true);
+		
+		
+	
+		xhr.onreadystatechange = function() {
+    	if (xhr.readyState === 4 && xhr.status === 200) {
+       	 	console.log("Oggetto aggiunto con successo al carrello!");
+       	 	var numeroElementi = xhr.responseText;
+       	 	document.getElementById("contatoreCarrello").innerHTML = numeroElementi;
+        }
+	};
+	
+	xhr.send();
+
+	
+  }
+  
+	
+
+
   

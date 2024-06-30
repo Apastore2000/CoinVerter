@@ -5,32 +5,36 @@ import java.sql.SQLException;
 
 import prodotti.ProductBean;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ManageAccountServlet {
+@WebServlet("/Manage")
+public class ManageAccountServlet extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User u =(User) request.getSession().getAttribute("user");
-		if(u == null || !u.isAdmin()) {
+		User u =(User) request.getAttribute("user");
+		/*if(u == null || !u.isAdmin()) {
 			response.sendRedirect("index.jsp");
 			return;
-		}
+		}*/
 		String attività = request.getParameter("activity");
 		User user = new User();
 		String email = request.getParameter("email");
-		String nome = request.getParameter("name");
-		String cognome = request.getParameter("surname");
-		String password = request.getParameter("password");
-		String admin = request.getParameter("admin");
+		System.out.println(email);
 		UsersDaoDataSource source = new UsersDaoDataSource();
+		try {
+		user = source.doRetrieveByEmail(email);
 		
 		if(attività != null) {
 			switch(attività) {
 				case "modify": 
 				
-					try {
-						user = source.doRetrieveByEmail(email);
+					
+						
 						if(!user.isAdmin()) user.setAdmin(true);
 							else user.setAdmin(false);
 						
@@ -38,10 +42,7 @@ public class ManageAccountServlet {
 						
 						
 						
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
 					break;
 				
 				case "remove":
@@ -54,5 +55,17 @@ public class ManageAccountServlet {
 				break;
 			}//switch
 		}
-	}
+		response.sendRedirect("gestioneAccount.jsp");
+		return;		
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+		
+	}	
 }

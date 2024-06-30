@@ -22,6 +22,7 @@ public class Login extends HttpServlet {
 		
 			String email = request.getParameter("email");
 			String password = request.getParameter("pwd");
+			
 			List<String> errors = new ArrayList<>();
         	RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("login.jsp");
 
@@ -41,7 +42,7 @@ public class Login extends HttpServlet {
             email = email.trim();
         
             password = Encrypter.hashPassword(password.trim()); 
-            System.out.println(password);
+           
            
             try {
 				u = d.doRetrieveByEmail(email);
@@ -50,13 +51,6 @@ public class Login extends HttpServlet {
 				e.printStackTrace();
 			}
            			
-            //check valid password
-            System.out.println("--------------------");
-            System.out.println(u.getNome());
-            System.out.println(u.getCognome());
-            System.out.println(u.getPwd());
-            System.out.println(u.getEmail());
-            System.out.println(u.isAdmin());
             if(u != null && u.getPwd().equals(password)) {
             	request.getSession().setAttribute("user", u);
             	RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

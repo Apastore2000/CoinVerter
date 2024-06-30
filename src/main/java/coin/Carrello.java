@@ -26,6 +26,7 @@ public class Carrello {
 		for(ProductBean prod : products) {
 			if(prod.getCode() == product.getCode()) {
 				products.remove(prod);
+				count -= 1;
 				break;
 			}
 		}

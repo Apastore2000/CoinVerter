@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
-<%@ page import="java.util.ArrayList,prodotti.ProductBean" %>
+<%@ page import="java.util.ArrayList,prodotti.ProductBean,coin.Carrello" %>
+
 <%
 	HttpSession sessione = request.getSession();
 	ArrayList<ProductBean> prodotti = (ArrayList<ProductBean>)sessione.getAttribute("products");
+	String json = new String();
+
 	if(prodotti==null || prodotti.isEmpty()){
 		response.sendRedirect(request.getContextPath()+"/Shop");
 		return;
 	}
+	//Carrello carrello =(Carrello) sessione.getAttribute("cart");
 %>
 
 <head>
@@ -15,7 +19,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
-  <%if(prodotti.size()<=3){%>
+  <%if(prodotti.size()<=4){%>
   	<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/shopLow.css">
   <%}else{%>
   	<link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/shopHigh.css">
@@ -65,24 +69,23 @@
 
         <div class="category">
           <div class="categoryItem">
-            <a class="selectionMenu">
-              <img class="categoryIcon" src="img/icon/iconCurrency.png" alt="" onclick="RicercaCat(valuta)">Valute
+            <a class="selectionMenu" href="Shop?filter=valuta&action=categoria">
+              <img class="categoryIcon" src="img/icon/iconCurrency.png" alt="">Valute
             </a>
           </div>
           <div class="categoryItem">
-            <a class="selectionMenu">
-              <img class="categoryIcon" src="img/icon/iconCrypto.png" alt="" onclick="RicercaCat(crypto)">Cryptovalute
+            <a class="selectionMenu" href="Shop?filter=crypto&action=categoria">
+              <img class="categoryIcon" src="img/icon/iconCrypto.png" alt="">Cryptovalute
             </a>
           </div>
           <div class="categoryItem">
             <a class="subMenuBtn">
-              <img class="categoryIcon" src="img/icon/iconCard.png" alt="">Card
+              <img class="categoryIcon" src="img/icon/iconCard.png" alt="">Carte
               <img class="dropdown" src="img/icon/right.png" alt="">
             </a>
-            <div class="subMenu">
-              <a class="subItem" href="">Carte</a>
-              <a class="subItem" href="" onclick="RicercaCat(ricarica)">Ricariche</a>
-              <a class="subItem" href="" onclick="RicercaCat(moneta)">Gift Card</a>
+            <div class="subMenu" show>
+              <a class="subItem" href="Shop?filter=ricarica&action=categoria">Ricariche</a>
+              <a class="subItem" href="Shop?filter=moneta&action=categoria" >Gift Card</a>
             </div>
           </div>
            <div class="megaPezza"></div>
@@ -99,7 +102,7 @@
           		<img src="img/icon/iconUser.png" alt="">
         	</div>
             <h2>
-              Our <span>products</span>
+              I nostri <span>prodotti</span>
             </h2>
           </div>
           
@@ -108,12 +111,14 @@
 			if(prodotti.isEmpty()){%>
 				<h1>ARRAYLIST PRODOTTI VUOTO</h1>	
 			<%}
-			for(ProductBean p : prodotti){ %>
+			for(ProductBean p : prodotti){ 
+				
+			%>
             <div class="shopItem">
               <div class="itemBox">
                 <div class="optionContainer">
                   <div class="options">
-                    <a href="" class="option">
+                    <a onclick="modificaCarrello('<%=p.getCode()%>','add')" class="option">
                       Aggiungi al carrello
                     </a>
                   </div>

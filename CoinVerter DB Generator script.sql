@@ -7,10 +7,7 @@ CREATE TABLE prodotto(
     nome VARCHAR(50) NOT NULL,
    	prezzo DOUBLE NOT NULL,
     quantità INT,
-    tipo ENUM('valuta',
-	'crypto',
-	'monete',
-	'ricariche') NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
 	foto MEDIUMBLOB,
 	disponibile BOOLEAN NOT NULL
 );
@@ -32,27 +29,16 @@ CREATE TABLE ordine(
 
 
 CREATE TABLE valuta(
-	nome VARCHAR(50) NOT NULL PRIMARY KEY,
-	valore DOUBLE NOT NULL
+	email VARCHAR(50) PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+	valore DOUBLE NOT NULL,
+    FOREIGN KEY(email) REFERENCES utente(Email) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE acquista(
-	Email VARCHAR(50) NOT NULL,
-	ID_prodotto INT NOT NULL,
-	PRIMARY KEY(Email,ID_prodotto), 
-    FOREIGN KEY(Email) REFERENCES utente(Email) ON UPDATE CASCADE,
-	FOREIGN KEY(ID_prodotto) REFERENCES prodotto(ID_prodotto) ON UPDATE CASCADE
+CREATE TABLE acquisto(
+	ID_acquisto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    q_acquisto INT NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+	tipo VARCHAR(50) NOT NULL,
+	prezzo DOUBLE NOT NULL
 );
-
-CREATE TABLE contiene(
-	ID_ordine INT NOT NULL,
-	ID_prodotto INT NOT NULL,
-	prezzo DOUBLE,
-	PRIMARY KEY(ID_ordine,ID_prodotto), 
-    FOREIGN KEY(ID_ordine) REFERENCES ordine(ID_ordine),
-	FOREIGN KEY(ID_prodotto) REFERENCES prodotto(ID_prodotto) 
-);
-
-
-
-

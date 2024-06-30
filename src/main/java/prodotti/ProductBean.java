@@ -6,14 +6,16 @@ import java.sql.Blob;
 public class ProductBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	String ProductType[]= {"valuta","crypto","moneta","ricarica"};
 	
 	int code;
 	String name;
 	float price;
 	Integer quantity;
-	ProductType tipo;
+	String tipo;
 	Blob foto;
 	boolean available;
+	
 
 	
 	public ProductBean() {
@@ -21,11 +23,13 @@ public class ProductBean implements Serializable {
 		name = "";
 		price = -1;
 		quantity = -1;
-		tipo = null;
+		tipo = "";
 		foto = null;
 		available = true;
 	}
 
+	
+	
 	public int getCode() {
 		return code;
 	}
@@ -54,14 +58,19 @@ public class ProductBean implements Serializable {
 	public String getType() {
 		return tipo.toString();
 	}
-
-	public int setType(String tipo) {
-		for(ProductType prod : ProductType.values()) {
-			if(tipo.equals(prod.toString()))this.tipo = ProductType.valueOf(tipo);
-			return 0;
-		}
-		return -1;
+	
+	
+	public String getTipo() {
+		return tipo;
 	}
+
+
+
+	public void setType(String tipo) {
+		for(String t : ProductType)if(tipo.equals(t)) {this.tipo = tipo; break;}	
+	}
+
+
 
 	public int getQuantity() {
 		return quantity;
@@ -71,8 +80,6 @@ public class ProductBean implements Serializable {
 		this.quantity = quantity;
 		
 	}
-
-	
 
 	public Blob getFoto() {
 		return foto;
@@ -95,11 +102,11 @@ public class ProductBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductBean [code=" + code + ", name=" + name + ", price=" + price + ", quantity=" + quantity
-				+ ", tipo=" + tipo + "]";
+		return "[code=" + code + ", name=" + name + ", price=" + price + ", quantity=" + quantity
+				+ ", tipo=" + tipo +", available=" + available + "]";
 	}
 
 	
-
+	
 	
 }

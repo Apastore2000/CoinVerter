@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.naming.Context;
@@ -97,33 +97,43 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 	}
 
 	@Override
-	public synchronized Collection<User> doRetrieveAll(String order) throws SQLException {
+	public synchronized ArrayList<User> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		Collection<User> users = new LinkedList<User>();
+		
+		ArrayList<User> products = new ArrayList<User>();
 
 		String selectSQL = "SELECT * FROM " + UsersDaoDataSource.TABLE_NAME;
-
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
-
+		String walletSQL = "SELECT * FROM valuta WHERE email = ?";
+		connection = ds.getConnection();
 		try {
-			connection = ds.getConnection();
+		
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY ?";
 			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setString(1, order);
+		}else {
+			preparedStatement = connection.prepareStatement(selectSQL);
+		}
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
+				preparedStatement = connection.prepareStatement(walletSQL);
 				User bean = new User();
-
+				
+				
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
-				bean.setEmail(rs.getString("email"));
 				bean.setPwd(rs.getString("pwd"));
+				bean.setEmail(rs.getString("email"));
 				bean.setAdmin(rs.getBoolean("isAdmin"));
-				users.add(bean);
+				preparedStatement.setString(1, bean.getEmail());
+				ResultSet rw = preparedStatement.executeQuery();
+				while(rw.next())bean.ricaricaPortafoglio(rw.getString("nome"), rw.getDouble("valore"));
+				
+				products.add(bean);
 			}
 
 		} finally {
@@ -135,7 +145,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 					connection.close();
 			}
 		}
-		return users;
+		return products;
 	}
 
 	
@@ -184,6 +194,7 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 		User bean = new User();
 
 		String selectSQL = "SELECT * FROM " + UsersDaoDataSource.TABLE_NAME + " WHERE email = ?";
+		String walletSQL = "SELECT * FROM valuta WHERE email = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -194,12 +205,20 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 			if(!rs.isBeforeFirst()) bean = null;
 			else {
 				while (rs.next()) {
+				preparedStatement = connection.prepareStatement(walletSQL);
+					
+				
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPwd(rs.getString("pwd"));
 				bean.setAdmin(rs.getBoolean("isAdmin"));
-			}
+				preparedStatement.setString(1, bean.getEmail());
+				ResultSet rw = preparedStatement.executeQuery();
+				while(rw.next())bean.ricaricaPortafoglio(rw.getString("nome"), rw.getDouble("valore"));
+				
+				
+				}
 			}			
 		} finally {
 			try {

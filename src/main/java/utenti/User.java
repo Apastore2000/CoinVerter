@@ -7,7 +7,7 @@ public class User {
 
 	private String nome,cognome,email,pwd;
 	private boolean isAdmin = false;
-	HashMap<String, Integer> portafoglio;
+	HashMap<String, Double> portafoglio;
 	// ProductBean[] portafoglio; 
 	
 	
@@ -63,13 +63,13 @@ public class User {
 	}
 	
 	
-	public HashMap<String, Integer> getPortafoglio() {
+	public HashMap<String, Double> getPortafoglio() {
 		return portafoglio;
 	}
 	
-	public void ricaricaPortafoglio(String valuta,int importo) {
-		portafoglio.putIfAbsent(valuta, 0);
-		portafoglio.put(valuta, portafoglio.get(valuta) + importo);
+	public void ricaricaPortafoglio(String valuta,double f) {
+		portafoglio.putIfAbsent(valuta, (double) 0);
+		portafoglio.put(valuta, portafoglio.get(valuta) + f);
 		
 	}
 	

@@ -1,6 +1,7 @@
 package prodotti;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import javax.sql.DataSource;
 
 public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
-	private String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+	private String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE ID_prodotto = ?";
 	
 	private static DataSource ds;
 
@@ -128,7 +129,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
 		ProductBean bean = new ProductBean();
 
-		//String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+		//String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE ID_prodotto = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -166,7 +167,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
 		int result = 0;
 
-		String deleteSQL = "UPDATE " + ProductDaoDataSource.TABLE_NAME + " SET disponibile = 'false' WHERE CODE = ?";
+		String deleteSQL = "UPDATE " + ProductDaoDataSource.TABLE_NAME + " SET disponibile = 'false' WHERE ID_prodotto = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -190,47 +191,33 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 	
 	
 	
-	
-	@Override
-	public ArrayList<ProductBean> doRetrieveByName(String name) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		ArrayList<ProductBean> beanz = new ArrayList<ProductBean>();
-
-		String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE nome LIKE ?";
-
-		
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectNameSQL);
-			preparedStatement.setString(1, name + "%");
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				ProductBean bean = new ProductBean();
-				bean.setCode(rs.getInt("ID_prodotto"));
-				bean.setName(rs.getString("nome"));
-				bean.setType(rs.getString("tipo"));
-				bean.setFoto(rs.getBlob("foto"));
-				bean.setPrice((float)rs.getDouble("prezzo"));
-				beanz.add(bean);
-			
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return beanz;
-	}
-
+	/*
+	 * @Override public ArrayList<ProductBean> doRetrieveByName(String name) throws
+	 * SQLException { Connection connection = null; PreparedStatement
+	 * preparedStatement = null;
+	 * 
+	 * ArrayList<ProductBean> beanz = new ArrayList<ProductBean>();
+	 * 
+	 * String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME +
+	 * " WHERE nome LIKE ?";
+	 * 
+	 * 
+	 * try { connection = ds.getConnection(); preparedStatement =
+	 * connection.prepareStatement(selectNameSQL); preparedStatement.setString(1,
+	 * name + "%");
+	 * 
+	 * ResultSet rs = preparedStatement.executeQuery();
+	 * 
+	 * while (rs.next()) { ProductBean bean = new ProductBean();
+	 * bean.setCode(rs.getInt("ID_prodotto")); bean.setName(rs.getString("nome"));
+	 * bean.setType(rs.getString("tipo")); bean.setFoto(rs.getBlob("foto"));
+	 * bean.setPrice((float)rs.getDouble("prezzo")); beanz.add(bean);
+	 * 
+	 * }
+	 * 
+	 * } finally { try { if (preparedStatement != null) preparedStatement.close(); }
+	 * finally { if (connection != null) connection.close(); } } return beanz; }
+	 */
 	
 	
 	
@@ -296,7 +283,7 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 				ProductBean bean = new ProductBean();
 
 				String tp = rs.getString("tipo");
-				if(tp.equals("carta")) bean.setQuantity(rs.getInt("quantità"));
+				if(tp.equals("ricarica")) bean.setQuantity(rs.getInt("quantità"));
 				
 				bean.setCode(rs.getInt("ID_prodotto"));
 				bean.setType(tp);
@@ -345,11 +332,16 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 				ProductBean bean = new ProductBean();
 
 				String tp = rs.getString("tipo");
-				if(tp.equals("carta")) bean.setQuantity(rs.getInt("quantità"));
+				
+				if(tp.equals("ricarica"))bean.setQuantity(rs.getInt("quantità"));
 				
 				bean.setCode(rs.getInt("ID_prodotto"));
+				
 				bean.setType(tp);
+				
+			
 				bean.setName(rs.getString("nome"));
+				
 				bean.setPrice(rs.getFloat("prezzo"));
 				bean.setFoto(rs.getBlob("foto"));
 				bean.setAvailable(rs.getBoolean("disponibile"));
@@ -369,4 +361,32 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		return products;
 	}
 
+	@Override
+	public void doBuy(ArrayList<ProductBean> products,String email) throws SQLException {
+		String Ordinesql = "INSERT INTO ordine(data_acquisto, email) VALUES(?,?)";
+		String Prodottisql = "INSERT INTO ordine(data_acquisto, email) VALUES(?,?)";
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		connection = ds.getConnection();
+		try {
+			preparedStatement = connection.prepareStatement(Ordinesql);
+			preparedStatement.setDate(1, Date.valueOf(java.time.LocalDate.now()));
+			preparedStatement.setString(2, email);
+			preparedStatement.execute();
+		}finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
+
+	
+	
+	
 }
