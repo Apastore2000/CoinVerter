@@ -57,7 +57,7 @@
     	<td class="mamma" colspan="5">
 			<div class="dataContainer center-item">
    	   			<div class="modifyBtn">
-          			<a href=""><img src="<%=getServletContext().getContextPath()%>/img/icon/iconModify.png" alt="" class="remove-item"></a>
+          			<a href="Manage?activity=modify&email=<%=u.getEmail()%>"><img src="<%=getServletContext().getContextPath()%>/img/icon/iconModify.png" alt="" class="remove-item"></a>
       			</div>
        			<div class="modifyBtn">
           			<a href="Manage?activity=remove&email=<%=u.getEmail()%>"><img src="<%=getServletContext().getContextPath()%>/img/icon/iconTrash.png" alt="" class="remove-item"></a>

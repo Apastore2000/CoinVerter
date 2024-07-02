@@ -235,60 +235,63 @@ public class UsersDaoDataSource implements IUsersDAO<User> {
 	
 	
 	
-	
-	@Override
+	@Override 
 	public void doUpdate(User user) throws SQLException {
-		Connection connection = null;
+		String updateSQL = "UPDATE " + UsersDaoDataSource.TABLE_NAME + " SET isAdmin = ? WHERE email = ?";
+		Connection connection = ds.getConnection();
 		PreparedStatement preparedStatement = null;
-
-		User oldUser = new User();
-
-		String updateSQL = "UPDATE " + UsersDaoDataSource.TABLE_NAME + 
-		" SET email = ?,pwd = ?, nome = ?, cognome = ?, isAdmin = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(updateSQL);
-			preparedStatement.setString(1, user.getEmail());
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				oldUser.setEmail("email");
-				oldUser.setNome(rs.getString("nome"));
-				oldUser.setCognome(rs.getString("cognome"));
-				oldUser.setPwd("pwd");
-				oldUser.setAdmin(false);
-				
-				
-			preparedStatement = connection.prepareStatement(updateSQL);
-			if(user.getNome()== null) preparedStatement.setString(1, oldUser.getNome());
-			else preparedStatement.setString(1, user.getNome());
-			
-			if(user.getCognome()== null) preparedStatement.setString(1, oldUser.getCognome());
-			else preparedStatement.setString(1, user.getCognome());
-			
-			if(user.getPwd() == oldUser.getPwd()) preparedStatement.setString(1, oldUser.getPwd());
-			else preparedStatement.setString(1, user.getPwd());
-			
-			if(user.isAdmin() == oldUser.isAdmin()) preparedStatement.setBoolean(1, oldUser.isAdmin());
-			else preparedStatement.setBoolean(1, user.isAdmin());
-			
-			
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-	
-	}
+		preparedStatement = connection.prepareStatement(updateSQL);
+		preparedStatement.setBoolean(1, user.isAdmin());
+		preparedStatement.setString(2, user.getEmail());
+		preparedStatement.executeUpdate();
 		
+		
+	}
+	
+	/*
+	 * @Override public void doUpdate(User user) throws SQLException { Connection
+	 * connection = null; PreparedStatement preparedStatement = null;
+	 * 
+	 * User oldUser = new User(); String getSQL = "SELECT * " +
+	 * UsersDaoDataSource.TABLE_NAME + " WHERE email = ?";
+	 * 
+	 * String updateSQL = "UPDATE " + UsersDaoDataSource.TABLE_NAME +
+	 * " SET email = ?,pwd = ?, nome = ?, cognome = ?, isAdmin = ?";
+	 * 
+	 * try { connection = ds.getConnection(); preparedStatement =
+	 * connection.prepareStatement(getSQL); preparedStatement.setString(1,
+	 * user.getEmail());
+	 * 
+	 * ResultSet rs = preparedStatement.executeQuery();
+	 * 
+	 * while (rs.next()) { oldUser.setEmail("email");
+	 * oldUser.setNome(rs.getString("nome"));
+	 * oldUser.setCognome(rs.getString("cognome")); oldUser.setPwd("pwd");
+	 * oldUser.setAdmin(false);
+	 * 
+	 * 
+	 * preparedStatement = connection.prepareStatement(updateSQL);
+	 * if(user.getNome()== null) preparedStatement.setString(1, oldUser.getNome());
+	 * else preparedStatement.setString(1, user.getNome());
+	 * 
+	 * if(user.getCognome()== null) preparedStatement.setString(1,
+	 * oldUser.getCognome()); else preparedStatement.setString(1,
+	 * user.getCognome());
+	 * 
+	 * if(user.getPwd() == oldUser.getPwd()) preparedStatement.setString(1,
+	 * oldUser.getPwd()); else preparedStatement.setString(1, user.getPwd());
+	 * 
+	 * if(user.isAdmin() == oldUser.isAdmin()) preparedStatement.setBoolean(1,
+	 * oldUser.isAdmin()); else preparedStatement.setBoolean(1, user.isAdmin());
+	 * 
+	 * 
+	 * }
+	 * 
+	 * } finally { try { if (preparedStatement != null) preparedStatement.close(); }
+	 * finally { if (connection != null) connection.close(); } }
+	 * 
+	 * }
+	 */	
 
 	
 	

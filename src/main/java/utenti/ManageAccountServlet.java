@@ -36,7 +36,6 @@ public class ManageAccountServlet extends HttpServlet{
 			switch(attività) {
 				case "modify": 
 				
-					
 						
 						if(!user.isAdmin()) user.setAdmin(true);
 							else user.setAdmin(false);

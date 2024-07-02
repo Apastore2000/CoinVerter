@@ -31,8 +31,8 @@ CREATE TABLE ordine(
 CREATE TABLE valuta(
 	email VARCHAR(50),
     nome VARCHAR(50) NOT NULL,
-	valore DOUBLE NOT NULL,
-    FOREIGN KEY(email) REFERENCES utente(Email) ON UPDATE CASCADE ON DELETE CASCADE
+	valore DOUBLE NOT NULL
+    
 );
 
 CREATE TABLE acquisto(
