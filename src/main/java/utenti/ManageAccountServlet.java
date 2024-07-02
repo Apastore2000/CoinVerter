@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import prodotti.ProductBean;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ public class ManageAccountServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().removeAttribute("REFRESH");
 		User u =(User) request.getAttribute("user");
 		/*if(u == null || !u.isAdmin()) {
 			response.sendRedirect("index.jsp");
@@ -55,8 +58,9 @@ public class ManageAccountServlet extends HttpServlet{
 				break;
 			}//switch
 		}
-		response.sendRedirect("gestioneAccount.jsp");
-		return;		
+		response.sendRedirect(getServletContext().getContextPath()+ "/admin/gindex.jsp");
+		return;
+		
 	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

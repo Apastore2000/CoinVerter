@@ -1,5 +1,6 @@
 package prodotti;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import utenti.User;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,17 +29,35 @@ public class ManageProductServlet extends HttpServlet {
 			response.sendRedirect("index.jsp");
 			return;
 		}
+		int id =Integer.parseInt(request.getParameter("id"));
 		String attività = request.getParameter("activity");
 		ProductBean prodotto = new ProductBean();
-		int id =Integer.parseInt(request.getParameter("id"));
-		String nome = request.getParameter("name");
-		float prezzo = Float.parseFloat(request.getParameter("price"));
-		int quantità = Integer.parseInt("quantity");
-		boolean disponibile = Boolean.parseBoolean("available");
-		String tipo = request.getParameter("type");
 		ProductDaoDataSource source = new ProductDaoDataSource();
 		
+		
+		
+		
+		if(attività == null) {
+			try {
+				prodotto = source.doRetrieveByKey(id);
+				request.getSession().setAttribute("mod", prodotto);
+				response.sendRedirect("admin/ProdottoForm.jsp");
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		if(attività != null) {
+			String nome = request.getParameter("name");
+			float prezzo = Float.parseFloat(request.getParameter("price"));
+			int quantità = Integer.parseInt("quantity");
+			boolean disponibile = Boolean.parseBoolean("available");
+			String tipo = request.getParameter("type");
+			
 			switch(attività) {
 				case "modify": 
 				

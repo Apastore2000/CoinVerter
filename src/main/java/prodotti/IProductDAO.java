@@ -3,6 +3,8 @@ package prodotti;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import utenti.User;
+
 
 public interface IProductDAO<T> {
 	public void doSave(T product) throws SQLException;
@@ -13,7 +15,7 @@ public interface IProductDAO<T> {
 
 	public T doRetrieveByKey(int code) throws SQLException;
 	
-	//public ArrayList<T> doRetrieveByName(String name) throws SQLException;
+	public ArrayList<T> doRetrieveByName(String name) throws SQLException;
 	
 	public ArrayList<T> doRetrieveAvailable() throws SQLException;
 	
@@ -21,7 +23,9 @@ public interface IProductDAO<T> {
 
 	public ArrayList<T> doRetrieveByCategory(String cat) throws SQLException;
 	
-	public void doBuy(ArrayList<T> products,String email) throws SQLException;
+	public void doBuy(ArrayList<T> products,User u) throws SQLException;
+
+
 	
 	
 	

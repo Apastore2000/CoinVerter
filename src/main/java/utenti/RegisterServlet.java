@@ -26,13 +26,13 @@ public class RegisterServlet extends HttpServlet {
 						
 		
 			String nome = request.getParameter("name");
-			System.out.println(nome);
+			
 			String cognome = request.getParameter("surname");
-			System.out.println(cognome);
+		
 			String email = request.getParameter("email");
-			System.out.println(email);
+
 			String password = request.getParameter("pwd");
-			System.out.println(password);
+
 			
 			
 			List<String> errors = new ArrayList<>();

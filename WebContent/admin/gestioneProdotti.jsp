@@ -23,7 +23,7 @@
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
   <script src="JS/scripts.js"></script>
 
-<title>Insert title here</title>
+<title>CoinVerter Sezione Admin</title>
 </head>
 
 
@@ -44,13 +44,13 @@
                   </div>
                   
                   <h5><%=p.getCode()%></h5><h5><%=p.getName()%></h5><h5><%=p.getQuantity()%></h5><h5><%=p.getPrice()%></h5><h5><%=p.getType()%></h5>
-                  <div class="right">
+                  <div class="last">
                   <div class="dataContainer center-item">
                   	<div class="modifyBtn">
-                  		<img src="img/icon/iconTrash.png" alt="" class="remove-item">
+                  		<a href="Gestione?id=<%=p.getCode()%>"><img src="img/icon/iconModify.png" alt="" class="remove-item"></a>
                   	</div>
                   	<div class="modifyBtn">
-                  		<img src="img/icon/iconTrash.png" alt="" class="remove-item">
+                  		<a href=""><img src="img/icon/iconTrash.png" alt="" class="remove-item"></a>
                   	</div>
                   </div>
                  </div>

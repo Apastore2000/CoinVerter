@@ -20,7 +20,7 @@ public class AccountAdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession sessione = request.getSession();
-		
+		sessione.removeAttribute("REFRESH");
 		ArrayList<User> prd = new ArrayList<User>();
 		UsersDaoDataSource source = new UsersDaoDataSource();
 

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
-<%@ page import="java.util.ArrayList,prodotti.ProductBean,coin.Carrello" %>
+<%@ page import="java.util.ArrayList,prodotti.ProductBean,coin.Carrello,java.text.DecimalFormat" %>
 
 <%
 	HttpSession sessione = request.getSession();
 	ArrayList<ProductBean> prodotti = (ArrayList<ProductBean>)sessione.getAttribute("products");
-	String json = new String();
+	DecimalFormat df = new DecimalFormat("#.##");
 
 	if(prodotti==null || prodotti.isEmpty()){
 		response.sendRedirect(request.getContextPath()+"/Shop");
 		return;
 	}
-	//Carrello carrello =(Carrello) sessione.getAttribute("cart");
+	Carrello carrello =(Carrello) sessione.getAttribute("cart");
 %>
 
 <head>
@@ -29,26 +29,7 @@
 </head>
 
 <body id="" onresize="switchSuite()" onload="switchSuite()">
-  <!--  <script type="text/javascript">
-        var setTheme = localStorage.getItem('theme')
-        console.log('theme:', setTheme)
-
-        if (setTheme == null){
-          swapStyle('CSS/light.css')
-  
-        }else{
-          swapStyle(setTheme)
-        }
-  
-        function swapStyle(sheet){
-          document.getElementById('mystylesheet').href = sheet
-          localStorage.setItem('theme', sheet)
-        }
-    </script>-->
-
-  <!--Header-->
-
-	
+ 
 	<jsp:include page='header.jsp'>
   		<jsp:param name = "PageTitle" value="shop"/>
   </jsp:include>
@@ -99,7 +80,7 @@
       	
           <div class="headerShopContainer">
             <div class="menuBtn">
-          		<img src="img/icon/iconUser.png" alt="">
+          		<img src="img/icon/iconMenu.png" alt="">
         	</div>
             <h2>
               I nostri <span>prodotti</span>
@@ -127,12 +108,8 @@
                   <img src="img/icon/iconUser.png" alt="">
                 </div>
                 <div class="detailBox">
-                  <h5>
-                    <%= p.getName() %>
-                  </h5>
-                  <h6>
-                    <%= p.getPrice() %>
-                  </h6>
+                  <h5><%= p.getName() %></h5>
+                  <h6>&#128; <%=df.format(p.getPrice())%></h6>
                 </div>
               </div>
             </div>

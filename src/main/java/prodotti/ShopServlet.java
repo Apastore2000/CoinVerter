@@ -28,6 +28,7 @@ public class ShopServlet extends HttpServlet {
 		ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
 		ProductDaoDataSource source = new ProductDaoDataSource();
 
+		
 		if (azione.equals("ricerca")) {
 
 			try {

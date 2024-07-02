@@ -10,7 +10,7 @@ public class ProductBean implements Serializable {
 	
 	int code;
 	String name;
-	float price;
+	double price;
 	Integer quantity;
 	String tipo;
 	Blob foto;
@@ -47,7 +47,7 @@ public class ProductBean implements Serializable {
 	}
 
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
@@ -56,13 +56,9 @@ public class ProductBean implements Serializable {
 	}
 	
 	public String getType() {
-		return tipo.toString();
-	}
-	
-	
-	public String getTipo() {
 		return tipo;
 	}
+	
 
 
 

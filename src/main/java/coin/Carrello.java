@@ -3,8 +3,6 @@ package coin;
 import prodotti.ProductBean;
 import java.util.ArrayList;
 
-//carrello dovrà essere in grado di contenere sia le valute che le carte
-// rendi generico usando T extends Product (va sviluppata l'interfaccia product)
 
 
 public class Carrello {
@@ -38,4 +36,12 @@ public class Carrello {
 	public ArrayList<ProductBean> getProducts() {
 		return products;
 	}
+
+	public void clearCart() {
+		products.clear();
+		count = 0;
+	}
+
 }
+
+

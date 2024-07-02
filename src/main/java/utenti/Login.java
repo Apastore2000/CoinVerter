@@ -34,7 +34,6 @@ public class Login extends HttpServlet {
 			}
             if (!errors.isEmpty()) {
             	request.setAttribute("errors", errors);
-            	for(String error : errors)System.out.println(error);
             	dispatcherToLoginPage.forward(request, response);
             	return; // note the return statement here!!!
             }

@@ -20,25 +20,6 @@
 </head>
 
 <body>
-  <!--  <script type="text/javascript">
-        var setTheme = localStorage.getItem('theme')
-        console.log('theme:', setTheme)
-
-        if (setTheme == null){
-          swapStyle('CSS/light.css')
-  
-        }else{
-          swapStyle(setTheme)
-        }
-  
-        function swapStyle(sheet){
-          document.getElementById('mystylesheet').href = sheet
-          localStorage.setItem('theme', sheet)
-        }
-    </script>-->
-
-  <!--Header-->
-
   <script>
     function switchLogo() {
       var logo = document.getElementById('logo');

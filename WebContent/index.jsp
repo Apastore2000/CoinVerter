@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
-<%@ page import="coin.Carrello" %>
-<%Carrello c = new Carrello(); 
-	request.getSession().setAttribute("cart", c);
-%>
+<%@ page import="coin.Carrello,prodotti.ProductBean,java.util.ArrayList" %>
+
 
 <head>
 <script type="text/javascript" src="JS/scripts.js"></script>
@@ -11,38 +9,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale = 1, width = device-width">
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
-
+ 
   <title>CoinVerter</title>
 </head>
 
 <body onresize="switchSuite()" onload="switchSuite()">
 
-
-  
   <jsp:include page='header.jsp'>
   		<jsp:param name = "PageTitle" value="index"/>
   </jsp:include>
 
- 
-
   <main class="bgPage">
     <div class="bg">
       <div class="flexContainer">
-        <div class="flexbox" >
-         	b1
-        </div>
-        <div class="flexbox">
-          b2
-        </div>
-        <div class="flexbox">
-          b3
-        </div>
-        <div class="flexbox">
-          b4
-        </div>
+        <a href="Shop?filter=valuta&action=categoria">
+          <div class="flexbox">
+            <img class="flexImg" alt="" src="img/icon/iconCurrency.png"><h5>VALUTE</h5>
+          </div>
+        </a>
+        <a href="Shop?filter=crypto&action=categoria">
+          <div class="flexbox">
+            <img class="flexImg" alt="" src="img/icon/iconCrypto.png"><h5>CRYPTOVALUTE</h5>
+          </div>
+        </a>
+        <a href="Shop?filter=ricarica&action=categoria">
+          <div class="flexbox">
+            <img class="flexImg" alt="" src="img/icon/iconGiftCard.png"><h5>RICARICHE</h5>
+          </div>
+        </a>
+        <a href="Shop?filter=moneta&action=categoria">
+          <div class="flexbox">
+            <img class="flexImg" alt="" src="img/icon/iconVbucks.png"><h5>MONETE DI GIOCO</h5>
+          </div>
+        </a>
       </div>
     </div>
   </main>
+  
   <div class="toTop">
       <a href="#" class="topBtn">
         <img src="img/icon/up.png" alt="">

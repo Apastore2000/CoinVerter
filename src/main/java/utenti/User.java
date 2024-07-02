@@ -1,6 +1,7 @@
 package utenti;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class User {
@@ -8,10 +9,13 @@ public class User {
 	private String nome,cognome,email,pwd;
 	private boolean isAdmin = false;
 	HashMap<String, Double> portafoglio;
-	// ProductBean[] portafoglio; 
 	
 	
-	public User() {}
+	
+	public User() {
+		
+		portafoglio = new HashMap<String, Double>();
+	}
 
 	public User(String nome, String cognome, String email, byte[] pwd, boolean isAdmin) {
 		this.nome = nome;
@@ -19,6 +23,7 @@ public class User {
 		this.email = email;
 		System.arraycopy(pwd, 0,this.pwd, 0,pwd.length);
 		this.isAdmin = isAdmin;
+		portafoglio = new HashMap<String, Double>();
 	}
 
 	public String getNome() {
@@ -57,7 +62,7 @@ public class User {
 		this.pwd = pwd;
 	}
 
-	// la possibilità di rendere un account admin è da discutere
+	
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
@@ -68,11 +73,13 @@ public class User {
 	}
 	
 	public void ricaricaPortafoglio(String valuta,double f) {
-		portafoglio.putIfAbsent(valuta, (double) 0);
-		portafoglio.put(valuta, portafoglio.get(valuta) + f);
-		
+	
+		if(!portafoglio.containsKey(valuta))portafoglio.put(valuta, f);	
+	
 	}
 	
-	
+	public void setPortafoglio(HashMap<String, Double> portafoglio) {
+		this.portafoglio = portafoglio;
+	}
 }
 	

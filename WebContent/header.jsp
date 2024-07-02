@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="utenti.User,coin.Carrello,prodotti.ProductBean"%>
+    pageEncoding="UTF-8" import="utenti.User,coin.Carrello,prodotti.ProductBean,java.util.Map,java.util.HashMap"%>
  
 <%
 	String name = request.getParameter("PageTitle");
@@ -88,7 +88,7 @@
          
          <div class="cartContainer">
            <div class="position">
-             <a href="admin/gindex.jsp"><img class="icon" src="img/icon/iconSettings.png" alt=""></a>
+             <a href="<%=getServletContext().getContextPath()%>/Ordini"><img class="icon" src="img/icon/iconSettings.png" alt=""></a>
              <span class="caption">GESTIONE</span>
            </div>
          </div>
@@ -134,7 +134,16 @@
         <img onclick="openSidebar(this.id)" id="sidex" class="icon" src="img/icon/iconX.png" alt="">
       </div>
       <div class="sidebarBody">
-
+		<table>
+			<%	if(user!= null){
+				HashMap<String,Double> valute = user.getPortafoglio();
+				for(Map.Entry<String, Double> v: valute.entrySet()) { %>
+			<tr>
+    			<td><%=v.getKey()%></td>
+    			<td><%=v.getValue()%></td>
+			</tr>
+			<%}} %>
+		</table>
       </div>
     </div>
   </div>

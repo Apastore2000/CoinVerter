@@ -5,12 +5,19 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import org.omg.CORBA.Request;
+
+import utenti.User;
 
 public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 
@@ -31,7 +38,9 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 	}
 
 	private static final String TABLE_NAME = "prodotto";
-
+	
+	
+	
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
 
@@ -45,9 +54,8 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			connection = ds.getConnection();    
 			preparedStatement = connection.prepareStatement(insertNewSQL);
 			preparedStatement.setString(1, product.getName());
-			preparedStatement.setFloat(2, product.getPrice());
+			preparedStatement.setDouble(2, product.getPrice());
 			preparedStatement.setInt(3, product.getQuantity());
-			//preparedStatement.setEnum che non esiste...
 			preparedStatement.setString(4, insertNewSQL);
 			preparedStatement.setString(5, product.getName());
 			preparedStatement.executeUpdate();
@@ -62,7 +70,6 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		}
 	}
 
-	
 	
 	@Override
 	public void doUpdate(ProductBean product) throws SQLException {
@@ -96,8 +103,8 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 			if(product.getType()== null) {preparedStatement.setString(1, oldBean.getType());}
 			else preparedStatement.setString(1, product.getType());
 			
-			if(product.getPrice()< 0) {preparedStatement.setFloat(1, oldBean.getPrice());}
-			else preparedStatement.setFloat(1, product.getPrice());
+			if(product.getPrice()< 0) {preparedStatement.setDouble(1, oldBean.getPrice());}
+			else preparedStatement.setDouble(1, product.getPrice());
 			
 			if(product.getFoto()== null) {preparedStatement.setBlob(1, oldBean.getFoto());}
 			else preparedStatement.setBlob(1, product.getFoto());
@@ -191,33 +198,32 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 	
 	
 	
-	/*
-	 * @Override public ArrayList<ProductBean> doRetrieveByName(String name) throws
-	 * SQLException { Connection connection = null; PreparedStatement
-	 * preparedStatement = null;
-	 * 
-	 * ArrayList<ProductBean> beanz = new ArrayList<ProductBean>();
-	 * 
-	 * String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME +
-	 * " WHERE nome LIKE ?";
-	 * 
-	 * 
-	 * try { connection = ds.getConnection(); preparedStatement =
-	 * connection.prepareStatement(selectNameSQL); preparedStatement.setString(1,
-	 * name + "%");
-	 * 
-	 * ResultSet rs = preparedStatement.executeQuery();
-	 * 
-	 * while (rs.next()) { ProductBean bean = new ProductBean();
-	 * bean.setCode(rs.getInt("ID_prodotto")); bean.setName(rs.getString("nome"));
-	 * bean.setType(rs.getString("tipo")); bean.setFoto(rs.getBlob("foto"));
-	 * bean.setPrice((float)rs.getDouble("prezzo")); beanz.add(bean);
-	 * 
-	 * }
-	 * 
-	 * } finally { try { if (preparedStatement != null) preparedStatement.close(); }
-	 * finally { if (connection != null) connection.close(); } } return beanz; }
-	 */
+	
+	  @Override public ArrayList<ProductBean> doRetrieveByName(String name) throws
+	  SQLException { Connection connection = null; PreparedStatement
+	  preparedStatement = null;
+	  
+	  ArrayList<ProductBean> beanz = new ArrayList<ProductBean>();
+	  
+	  String selectNameSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME +
+	  " WHERE nome LIKE ?";
+	  
+	  
+	  try { connection = ds.getConnection(); preparedStatement =
+	  connection.prepareStatement(selectNameSQL); preparedStatement.setString(1,"%" + name + "%");
+	  
+	  ResultSet rs = preparedStatement.executeQuery();
+	  
+	  while (rs.next()) { ProductBean bean = new ProductBean();
+	  bean.setCode(rs.getInt("ID_prodotto")); bean.setName(rs.getString("nome"));
+	  bean.setType(rs.getString("tipo")); bean.setFoto(rs.getBlob("foto"));
+	  bean.setPrice((float)rs.getDouble("prezzo")); beanz.add(bean);
+	  
+	  }
+	  
+	  } finally { try { if (preparedStatement != null) preparedStatement.close(); }
+	  finally { if (connection != null) connection.close(); } } return beanz; }
+	 
 	
 	
 	
@@ -362,18 +368,81 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 	}
 
 	@Override
-	public void doBuy(ArrayList<ProductBean> products,String email) throws SQLException {
+	public void /*Dubai*/doBuy(ArrayList<ProductBean> products,User u) throws SQLException {
 		String Ordinesql = "INSERT INTO ordine(data_acquisto, email) VALUES(?,?)";
-		String Prodottisql = "INSERT INTO ordine(data_acquisto, email) VALUES(?,?)";
-		
+		String Prodottisql = "INSERT INTO acquisto(ID_ordine,q_acquisto,nome,tipo,prezzo) VALUES(?,?,?,?,?)";
+		String RecoverWallet = "SELECT nome,valore FROM valuta WHERE email = ?";
+		String Wallet1sql = "INSERT INTO valuta(email,nome,valore) VALUES(?,?,?)";
+		String Wallet2sql = "UPDATE valuta SET nome = ? ,valore = ? WHERE email = ?";
+		ArrayList<ProductBean> catalogati = new ArrayList<ProductBean>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		connection = ds.getConnection();
 		try {
-			preparedStatement = connection.prepareStatement(Ordinesql);
+			//creo l'ordine
+			preparedStatement = connection.prepareStatement(Ordinesql,Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setDate(1, Date.valueOf(java.time.LocalDate.now()));
-			preparedStatement.setString(2, email);
+			preparedStatement.setString(2, u.getEmail());
 			preparedStatement.execute();
+			ResultSet id = preparedStatement.getGeneratedKeys();
+			int generatedId = -1;
+			if (id.next()) {generatedId = id.getInt(1); }
+			else System.out.println("ProductDaoDataSource + ERRORE KEY");
+			System.out.println("ProductDaoDataSource: Ordine eseguito +" + generatedId);
+			preparedStatement.close();
+					
+			//aggiungo i prodotti acquistati all'ordine
+			preparedStatement = connection.prepareStatement(Prodottisql);
+			preparedStatement.setInt(1, generatedId);
+			HashMap<String,Double> portafoglio = u.getPortafoglio();
+			HashMap<String,Double> dbData = new HashMap<String, Double>();
+			for(ProductBean p: products) {
+				String currentProduct = p.getName();
+				System.out.println("ProductDaoDataSource: PRECatalogati +" + p.getName());
+				if(!catalogati.contains(p)) {
+					catalogati.add(p);
+					System.out.println("ProductDaoDataSource: Catalogati +" + p.getName());
+					int i = 0; 
+					for(ProductBean f: products) if(f.getName().equals(currentProduct))i++;
+					System.out.println("ProductDaoDataSource: i + " +i);
+					preparedStatement.setInt(2, i);
+					preparedStatement.setString(3, currentProduct);
+					preparedStatement.setString(4, p.getType());
+					preparedStatement.setDouble(5, (p.getPrice()*i));
+					preparedStatement.addBatch();
+				}
+			}
+			preparedStatement.executeBatch();
+			System.out.println("ProductDaoDataSource: Batch ORdine eseguita");
+			
+			//salvo il portafoglio
+			
+			preparedStatement = connection.prepareStatement(RecoverWallet);
+			preparedStatement.setString(1,u.getEmail());
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) dbData.put(rs.getString("nome"), rs.getDouble("valore"));
+			    
+			
+			for(Map.Entry<String, Double> v: portafoglio.entrySet()) {
+				 if (!dbData.containsKey(v.getKey())) {
+					 preparedStatement = connection.prepareStatement(Wallet1sql);
+					 preparedStatement.setString(1,u.getEmail());
+					preparedStatement.setString(2,v.getKey());
+					preparedStatement.setDouble(3,v.getValue());
+				 }else {
+					 preparedStatement = connection.prepareStatement(Wallet2sql);
+					 preparedStatement.setString(1, v.getKey());
+					preparedStatement.setDouble(2, v.getValue());
+					preparedStatement.setString(3, u.getEmail());
+				 }
+				
+				preparedStatement.addBatch();
+			}
+			preparedStatement.executeBatch();
+			System.out.println("ProductDaoDataSource: Batch  wallet eseguita");
+			
+			
+			
 		}finally {
 			try {
 				if (preparedStatement != null)
@@ -386,7 +455,5 @@ public class ProductDaoDataSource implements IProductDAO<ProductBean> {
 		
 	}
 
-	
-	
 	
 }

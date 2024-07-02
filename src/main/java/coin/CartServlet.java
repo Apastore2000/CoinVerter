@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,13 +44,17 @@ public class CartServlet extends HttpServlet {
 				c.addProduct(prodotto);
 				
 			}
-			else if(azione != null && azione.equals("remove")) c.deleteProduct(prodotto);
+			else if(azione != null && azione.equals("remove")) {
+				c.deleteProduct(prodotto);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
+				dispatcher.forward(request, response);
+			}
 			sessione.setAttribute("cart", c);
 			 PrintWriter out = response.getWriter();
 		        response.setContentType("text/plain");
 		        response.setCharacterEncoding("UTF-8");
 		        out.print(c.getCount());
-		        out.flush();   
+		        out.flush();
 	}
 
 	/**

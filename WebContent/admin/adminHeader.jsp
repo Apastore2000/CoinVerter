@@ -1,6 +1,6 @@
 <%
 /*
-	controllo accesso solo admin
+	controllo accesso solo admin...
 */
 %>
 
@@ -14,7 +14,7 @@
 </head>
 
 <body onload="consoleText(['Hi, Admin.', 'Choose what you want to do'], 'text', ['tomato', 'rebeccapurple'])" onresize="brutta()">
-  <header>
+  <header id="header-block">
     <div class="managementHeader">
       <div class="sidepanelBtn" onclick="bailandoo()">
         <img id="btnIcon" src="<%=getServletContext().getContextPath()%>/img/icon/iconMenu.png" alt="">

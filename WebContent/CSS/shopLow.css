@@ -1,4 +1,4 @@
-.bgShop {
+.bgshop {
     padding: auto 5%;
     position: relative;
     background-color: transparent;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 1150px) {
-    .bgShop{
+    .bgshop{
         height: 100vh;
     }
 }

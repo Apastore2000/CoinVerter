@@ -6,11 +6,18 @@
 	HttpSession sessione = request.getSession();
 	ArrayList<User> prodotti = (ArrayList<User>)sessione.getAttribute("acc");
 	
-
+	if(session.getAttribute("REFRESH")!=null){
+	    response.sendRedirect("../your_servlet");
+	}
+	else{    
+	session.setAttribute("REFRESH","TRUE");
+	}
+	
 	if(prodotti==null || prodotti.isEmpty()){
 		response.sendRedirect(request.getContextPath()+"/GestioneACC");
 		return;
 	}
+	
 %>
 
 
@@ -23,7 +30,7 @@
   <link id="mystylesheet" rel="stylesheet" type="text/css" href="CSS/light.css">
   <script src="JS/scripts.js"></script>
 
-<title>Insert title here</title>
+<title>CoinVerter</title>
 </head>
 
 
@@ -50,10 +57,10 @@
     	<td class="mamma" colspan="5">
 			<div class="dataContainer center-item">
    	   			<div class="modifyBtn">
-          			<img src="img/icon/iconTrash.png" alt="" class="remove-item">
+          			<a href=""><img src="<%=getServletContext().getContextPath()%>/img/icon/iconModify.png" alt="" class="remove-item"></a>
       			</div>
        			<div class="modifyBtn">
-          			<a href="Manage?activity='remove'&email=<%=u.getEmail()%>"><img src="img/icon/iconTrash.png" alt="" class="remove-item"></a>
+          			<a href="Manage?activity=remove&email=<%=u.getEmail()%>"><img src="<%=getServletContext().getContextPath()%>/img/icon/iconTrash.png" alt="" class="remove-item"></a>
      			</div>
        		</div>
 		</td>
@@ -62,10 +69,10 @@
 		<td colspan="4">
 			<div class="dataContainer center-item">
    	   			<div class="modifyBtn">
-          			<img src="img/icon/iconTrash.png" alt="" class="remove-item">
+          			<a href=""><img src="<%=getServletContext().getContextPath()%>/img/icon/iconModify.png" alt="" class="remove-item"></a>
       			</div>
        			<div class="modifyBtn">
-          			<a href="Manage?activity='remove'&email=<%=u.getEmail()%>"><img src="img/icon/iconTrash.png" alt="" class="remove-item"></a>
+          			<a href="Manage?activity=remove&email=<%=u.getEmail()%>"><img src="<%=getServletContext().getContextPath()%>/img/icon/iconTrash.png" alt="" class="remove-item"></a>
        			</div>
        		</div>
 		</td>
